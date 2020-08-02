@@ -6,4 +6,4 @@ This course picks up where Harvard University's CS50 leaves off, diving more dee
 
 https://www.youtube.com/playlist?list=PLhQjrBD2T382hIW-IsOVuXP1uMzEvmcE5
 
-## Note: Currently Work in Progress
+** Note:** Currently Work in Progress
