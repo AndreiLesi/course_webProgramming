@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+    <body>
+        <!-- Top Navigation Bar-->
+        <nav class="navbar navbar-expand ">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="https://about.google/">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://store.google.com/">Store</a></li>
+                </ul>
+            </div>    
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="image_search.html">Image Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="advanced_search.html">Advanced Search</a></li>
+                </ul>
+            </div>      
+        </nav>
+        <!-- Bottom Navigation Bar-->
+        <nav class="navbar fixed-bottom navbar-light navbar-expand">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="https://ads.google.com/intl/en_de/home/">Advertising</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://www.google.com/services/">Business</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://www.google.com/search/howsearchworks/">How Search works</a></li>
+                </ul>
+            </div>    
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="https://policies.google.com/privacy">Privacy</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://policies.google.com/terms">Terms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://www.google.com/preferences">Settings</a></li> 
+                </ul>
+            </div>      
+        </nav>
+        <!-- Google Logo -->
+        <div class="center">
+            <img src="Images/Google.png" alt="Google">
+        </div>
+        <!-- Search form -->
+        <form class="form-inline justify-content-center" action="https://google.com/search">
+            <i class="fas fa-search " aria-hidden="true"></i>
+            <input class="form-control rounded-pill" size="60" type="text" placeholder="Search"
+            aria-label="Search" name="q">
+            <button class="btn text-secondary" type="submit" value="Google Search">Search</button>
+            <button class="btn text-secondary" type="submit" value="Google Search">I'm Feeling Lucky</button>   
+        </form>
+    </body>
+</html>

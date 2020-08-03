@@ -1,0 +1,22 @@
+.navbar{
+    font-size: 14px;
+}
+
+.navbar-nav a{
+    color: black;
+}
+
+.fixed-bottom{
+    background-color:#f2f2f2;
+}
+
+.round-pill{
+    border-radius: 2rem;
+    width: 40%;
+}
+
+.center{
+    text-align: center;
+    padding-top: 145px;
+}
+

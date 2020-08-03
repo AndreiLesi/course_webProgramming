@@ -1,0 +1,27 @@
+<!-- To not have redundancy as shown in variables.css we use scss which allows us to have
+variables in ccss(it is an extension of css). The scss file however cannot be linked using
+the link operator in html. It must first be compiled to a css file (here variables0). The
+compilation is done using the scss programm. To not have to compile it by handw we can use
+the watch command, such that it gets compiled automatically if a change is noticed-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Web Page!</title>
+        <link rel="stylesheet" href="variables.css">
+    </head>
+    <body>
+        Unordered List
+        <ul>
+            <li>item one</li>
+            <li>item two</li>
+            <li>item three</li>
+        </ul>
+
+        Ordered List
+        <ol>
+            <li>item one</li>
+            <li>item two</li>
+            <li>item three</li>
+        </ol>
+    </body>
+</html>
