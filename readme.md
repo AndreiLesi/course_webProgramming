@@ -4,6 +4,6 @@ This course picks up where Harvard University's CS50 leaves off, diving more dee
 
 ## Youtube Source:
 
-https://www.youtube.com/playlist?list=PLhQjrBD2T382hIW-IsOVuXP1uMzEvmcE5
+https://www.edx.org/course/cs50s-web-programming-with-python-and-javascript
 
 **Note:** Currently Work in Progress
