@@ -15,30 +15,49 @@
 /* Google Logo */
 .googleLogo{
     text-align: center;
-    padding-top: 145px;
+    margin-top:145px;
+    margin-bottom: 27px;
 }
 
 /* Search Bar */
-#searchBar{
-    margin-top: 37px;
+.bar{
+    margin:0 auto;
+    width:575px;
+    border: 1px solid #dcdcdc;
+    border-radius: 50pt;
 }
-.round-pill{
-    margin-top: 0 auto;
-    border-radius: 2rem;
+.bar:hover{
+    box-shadow: 1px 1px 10px 1px #dcdcdc;
+}
+.searchbar{
+    height: 45px;
+    width: 500px;
+    border: none;
+    outline: none;
+    padding-left: 12px;
+}
+.fa-search{
+    position: relative;
+    left: 10pt;
+    color: #9aa0a6;;
 }
 
 /* Google Buttons */
-#searchButtons{
-    margin-top: 24px;
+.buttons{
+    margin-top: 30px;
+    text-align: center;
 }
-
-.btn{
-    background-color: red;
-    color: red;
-    margin-left: 8px;
+.button{
+    background-color: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    color:#5F6368;
+    font-size:15px;
+    padding: 0px 16px;
+    margin: -2px 4px;
+    height: 36px;
+    outline:none;
 }
-.btn:hover{
-    border: 1px solid gray;
+.button:hover{
+    border: 1px solid #c8c8c8;
+    color:#808080;
 }
-
-
