@@ -1,22 +1,44 @@
+/* Navigation Bar TOP */
 .navbar{
     font-size: 14px;
 }
-
 .navbar-nav a{
     color: black;
+    margin: 0 auto;
 }
 
+/* Navigation Bar Bottom */
 .fixed-bottom{
     background-color:#f2f2f2;
 }
 
-.round-pill{
-    border-radius: 2rem;
-    width: 40%;
-}
-
-.center{
+/* Google Logo */
+.googleLogo{
     text-align: center;
     padding-top: 145px;
 }
+
+/* Search Bar */
+#searchBar{
+    margin-top: 37px;
+}
+.round-pill{
+    margin-top: 0 auto;
+    border-radius: 2rem;
+}
+
+/* Google Buttons */
+#searchButtons{
+    margin-top: 24px;
+}
+
+.btn{
+    background-color: red;
+    color: red;
+    margin-left: 8px;
+}
+.btn:hover{
+    border: 1px solid gray;
+}
+
 
