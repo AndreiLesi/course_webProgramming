@@ -10,6 +10,7 @@
 /* Navigation Bar Bottom */
 .fixed-bottom{
     background-color:#f2f2f2;
+    font-size: 15px;
 }
 
 /* Google Logo */
@@ -20,34 +21,38 @@
 }
 
 /* Search Bar */
-.bar{
+form.searchbar-GoogleSearch .bar {
     margin:0 auto;
     width:575px;
     border: 1px solid #dcdcdc;
     border-radius: 50pt;
 }
-.bar:hover{
+
+form.searchbar-GoogleSearch .bar:hover{
     box-shadow: 1px 1px 10px 1px #dcdcdc;
 }
-.searchbar{
+
+form.searchbar-GoogleSearch input[type=text]{
     height: 45px;
     width: 500px;
     border: none;
     outline: none;
     padding-left: 12px;
 }
-.fa-search{
+
+form.searchbar-GoogleSearch .fas{
     position: relative;
     left: 10pt;
-    color: #9aa0a6;;
+    color: #9aa0a6 ;
 }
 
 /* Google Buttons */
-.buttons{
+form.searchbar-GoogleSearch .buttons {
     margin-top: 30px;
     text-align: center;
 }
-.button{
+
+form.searchbar-GoogleSearch button {
     background-color: #f2f2f2;
     border: 1px solid #f2f2f2;
     color:#5F6368;
@@ -57,7 +62,30 @@
     height: 36px;
     outline:none;
 }
-.button:hover{
+
+form.searchbar-GoogleSearch button:hover{
     border: 1px solid #c8c8c8;
     color:#808080;
+}
+
+.logo-subtext{
+    color: #4285f4;
+    font: 16px/16px arial, sans-serif;
+    position: relative;
+    top: -12pt;
+    padding-left: 157pt;
+    white-space: nowrap;
+}
+
+#bar-imagesSearch{
+    margin-top: -17pt;
+    width: 536px;
+}
+
+.wrapper{
+    display: flex;
+}
+
+#searchImagesButton{
+    flex: 1;
 }
