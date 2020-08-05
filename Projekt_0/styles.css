@@ -21,32 +21,31 @@
 }
 
 /* Search Bar */
-form.searchbar-GoogleSearch .bar {
-    margin:0 auto;
-    width:575px;
+.searchbar {
+    height: 45px;
+    width: 582px;
     border: 1px solid #dcdcdc;
     border-radius: 50pt;
+    padding-left: 30pt;
 }
 
-form.searchbar-GoogleSearch .bar:hover{
+.searchbar:hover{
     box-shadow: 1px 1px 10px 1px #dcdcdc;
 }
 
-form.searchbar-GoogleSearch input[type=text]{
-    height: 45px;
-    width: 500px;
-    border: none;
-    outline: none;
-    padding-left: 12px;
+.bar-div{
+    text-align: center;
+    padding-right: 17pt;
 }
 
-form.searchbar-GoogleSearch .fas{
+.bar-div .fas{
     position: relative;
-    left: 10pt;
+    left: 25pt;
     color: #9aa0a6 ;
+    width: 10pt;
 }
 
-/* Google Buttons */
+/* search.html Google Buttons */
 form.searchbar-GoogleSearch .buttons {
     margin-top: 30px;
     text-align: center;
@@ -68,6 +67,7 @@ form.searchbar-GoogleSearch button:hover{
     color:#808080;
 }
 
+/* image_search.html Logo text (images) */
 .logo-subtext{
     color: #4285f4;
     font: 16px/16px arial, sans-serif;
@@ -77,15 +77,25 @@ form.searchbar-GoogleSearch button:hover{
     white-space: nowrap;
 }
 
-#bar-imagesSearch{
-    margin-top: -17pt;
-    width: 536px;
+/* image-search.html search images button */
+#bar-div-imSearch button{
+    position: relative;
+    right: 40pt;
+    background-color: transparent;
+    border: none;
 }
 
-.wrapper{
-    display: flex;
+#bar-div-imSearch .fa{
+    background-color: none;
+    color: #4285f4;;
 }
 
-#searchImagesButton{
-    flex: 1;
+/* make image-search.html smaller, like on images.google.com  */
+#bar-div-imSearch{
+    margin-left: 38pt;
+    margin-top: -16pt;
+}
+
+#searchbar-imSearch{
+    width: 540px;
 }
