@@ -6,4 +6,4 @@ This course picks up where Harvard University's CS50 leaves off, diving more dee
 
 https://www.edx.org/course/cs50s-web-programming-with-python-and-javascript
 
-**Note:** Currently Work in Progress
+**Note:** I have started this course with 0 prior knowledge into HTML and CSS
