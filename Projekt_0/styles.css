@@ -118,56 +118,68 @@ form.searchbar-GoogleSearch button:hover{
     font: 20px arial;
 }
 
+
+/* Separation Line between Form and "Advanced Search" */
 .line{
     border-bottom: 1px solid #ebebeb;
     margin-bottom: 30pt;
 }
 
-.leftCol{
-    float: left;
-    width: 182.4pt;
-}
-
-.centerCol{
-    float: left;
-    width: 402pt;
-}
-
-.rightCol{
-    float: left;
-    width: 364.8;
-}
-
-.formElem-big{
-    width: 100%;
-}
-
-.formElem-small{
-    margin-top: 10pt;
-    width: 47.7%;
-}
-
-.test{
-    line-height: 300%;
-    margin-left: 30pt;
-    font-size: 10pt;
-    padding-top: 50pt;
-}
-
-.leftTitleTxt{
-    font-size: 13pt;
-    margin-left: 30pt;
-    margin-bottom: 10pt;
-}
 
 /* New Form with labels  */
 .block{
     margin-left: 35pt;
-    margin-bottom: 10pt;
+    margin-bottom: 8pt;
+    font-size: 10pt;
+    font-family: Arial;
+    color: #555;
 }
 
+/* Right Side Description  */
+.description{
+    margin: 0 5pt;
+    display: inline-flex;
+    width: 300pt;
+    font-size: 9pt;
+    vertical-align: middle;
+}
+
+/* Input Fields  */
+.inputField{
+    height: 22pt;
+    min-width: 50pt;
+    width: 30%;
+}
+
+.smallInputField{
+    height: 22pt;
+    min-width: 50pt;
+    width: 13.8%;
+}
+
+/* Titles Line Elements  */
+.Titles{
+    margin-bottom: 13pt;
+}
+
+.topSpan1{
+    display: inline-block;
+    margin-left: 35pt;
+}
+
+.emptyDiv{
+    display: inline-block;
+    min-width: 160pt;
+    width: 32%;
+}
+
+.topSpan2{
+    display: inline-block;
+}
+
+/* Label settings  */
 label {
     display: inline-block;
-    width: 190px;
+    width: 180px;
     text-align: left;
 }​

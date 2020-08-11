@@ -60,34 +60,38 @@
         <div class="rightCol">To do this in the search box</div>
     </div> <br> -->
 
-
+    <div class="Titles">
+        <div class="topSpan1">Find pages with ...</div> 
+        <div class="emptyDiv"></div>
+        <div class="topSpan2">To do this in the search box.</div>
+    </div>
     <form id="GoogleForm" action="https://google.com/search">
         <div class="block">
             <label for="leftLabel">all these words:</label>
-            <input size="60" type="text" name="as_q">
-            <span>Type the important words: tri-colour rat terrier</span>
+            <input class="inputField" type="text" name="as_q">
+            <span class="description">Type the important words: tri-colour rat terrier</span>
         </div>
         <div class="block">
             <label>this exact word or phrase:</label>
-            <input size="60" type="text" name="as_epq">
-            <span>Put exact words in quotes: "rat terrier"</span>
+            <input class="inputField" type="text" name="as_epq">
+            <span class="description">Put exact words in quotes: "rat terrier"</span>
         </div>
         <div class="block">
             <label>any of these words:</label>
-            <input size="60" type="text" name="as_oq">
-            <span>Type OR between all the words you want: miniature OR standard</span>
+            <input class="inputField" type="text" name="as_oq">
+            <span class="description">Type OR between all the words you want: miniature OR standard</span>
         </div>
         <div class="block">
             <label>none of these words:</label>
-            <input size="60" type="text" name="as_eq">
-            <span>Put a minus sign just before words that you don't want: -rodent, -"Jack Russell"</span>
+            <input class="inputField" type="text" name="as_eq">
+            <span class="description">Put a minus sign just before words that you don't want: <br> -rodent, -"Jack Russell"</span>
         </div>
         <div class="block">
             <label>numbers ranging from:</label>
-            <input type="text" size="25" name="as_nlo">
+            <input type="text" class="smallInputField" size="39" name="as_nlo">
             <span style="margin: 10pt;">to</span>
-            <input type="text" size="25" name="as_nhi">
-            <span>Put two full stops between the numbers and add a unit of measurement: 10..35 kg, £300..£500, 2010..2011</span>
+            <input type="text" class="smallInputField" size="39" name="as_nhi">
+            <div class="description">Put two full stops between the numbers and add a unit of measurement: <br> 10..35 kg, £300..£500, 2010..2011</div>
         </div>
     </form>
     <input type="submit" value="Submit" form="GoogleForm">
