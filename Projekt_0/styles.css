@@ -99,3 +99,75 @@ form.searchbar-GoogleSearch button:hover{
 #searchbar-imSearch{
     width: 540px;
 }
+
+.brandLogo{
+    height: 30.5px;
+}
+
+#navbar-advSearch{
+    display: inline !important;
+}
+
+#advSearch-topNavBar{
+    background-color: #f1f1f1;
+}
+
+.advSearchTitle{
+    margin:26px 44px;
+    color: #d93025;
+    font: 20px arial;
+}
+
+.line{
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 30pt;
+}
+
+.leftCol{
+    float: left;
+    width: 182.4pt;
+}
+
+.centerCol{
+    float: left;
+    width: 402pt;
+}
+
+.rightCol{
+    float: left;
+    width: 364.8;
+}
+
+.formElem-big{
+    width: 100%;
+}
+
+.formElem-small{
+    margin-top: 10pt;
+    width: 47.7%;
+}
+
+.test{
+    line-height: 300%;
+    margin-left: 30pt;
+    font-size: 10pt;
+    padding-top: 50pt;
+}
+
+.leftTitleTxt{
+    font-size: 13pt;
+    margin-left: 30pt;
+    margin-bottom: 10pt;
+}
+
+/* New Form with labels  */
+.block{
+    margin-left: 35pt;
+    margin-bottom: 10pt;
+}
+
+label {
+    display: inline-block;
+    width: 190px;
+    text-align: left;
+}​

@@ -10,37 +10,89 @@
 </head>
 <body>
     <!-- Top Navigation Bar-->
-    <nav class="navbar navbar-expand ">
+    <nav class="navbar navbar-expand" id="advSearch-topNavBar">
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="https://about.google/">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://store.google.com/">Store</a></li>
-            </ul>
+            <a href="search.html" class="navbar-brand"> <img class="brandLogo" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="none"> 
         </div>    
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="search.html">Google Search</a></li>
-                <li class="nav-item"><a class="nav-link" href="image_search.html">Image Search</a></li>
+                <li class="nav-item"><a class="nav-link" id="navbar-advSearch" href="search.html">Google Search</a></li>
+                <li class="nav-item"><a class="nav-link" id="navbar-advSearch" href="image_search.html">Image Search</a></li>
             </ul>
         </div>      
     </nav>
     <!-- Bottom Navigation Bar-->
-    <nav class="navbar fixed-bottom navbar-light navbar-expand">
+    <nav class="navbar fixed-bottom navbar-light navbar-expand"> 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="https://ads.google.com/intl/en_de/home/">Advertising</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://www.google.com/services/">Business</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://www.google.com/search/howsearchworks/">How Search works</a></li>
-            </ul>
-        </div>    
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="https://support.google.com/websearch/?visit_id=637323397822565961-2878688842&hl=en-DE&rd=2#topic=3378866">Help</a></li> 
                 <li class="nav-item"><a class="nav-link" href="https://policies.google.com/privacy">Privacy</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://policies.google.com/terms">Terms</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://www.google.com/preferences">Settings</a></li> 
             </ul>
         </div>      
     </nav>
-    <h1>Work in Progress...</h1>
+
+    <div class="advSearchTitle">
+        Advanced Search
+    </div>
+
+    <div class="line"></div>
+
+    <!-- <div class="lineTitles">
+        <div class="leftCol">
+            <span class="leftTitleTxt"> Find pages with...</span> <br>
+            <span class="test"> all these words: </span> <br>
+            <span class="test"> this exact word or phrase: </span> <br>
+            <span class="test"> any of these words: </span> <br>
+            <span class="test"> none of these words: </span> <br>
+            <span class="test"> numbers ranging from: </span> 
+        </div>
+        <div class="centerCol">
+            <br><br>
+            <form id="GoogleForm" action="https://google.com/search">
+                <input class="formElem-big" type="text" name="as_q"><br>
+                <input class="formElem-big" style="margin-top: 10pt" type="text" name="as_epq"><br>
+                <input class="formElem-big" style="margin-top: 10pt" type="text" name="as_oq"><br>
+                <input class="formElem-big" style="margin-top: 10pt" type="text" name="as_eq"><br>
+                <input class="formElem-small" type="text" name="as_nlo"> to <input class="formElem-small" type="text" name="as_nhi"><br>
+            </form>    
+        </div>
+        <div class="rightCol">To do this in the search box</div>
+    </div> <br> -->
+
+
+    <form id="GoogleForm" action="https://google.com/search">
+        <div class="block">
+            <label for="leftLabel">all these words:</label>
+            <input size="60" type="text" name="as_q">
+            <span>Type the important words: tri-colour rat terrier</span>
+        </div>
+        <div class="block">
+            <label>this exact word or phrase:</label>
+            <input size="60" type="text" name="as_epq">
+            <span>Put exact words in quotes: "rat terrier"</span>
+        </div>
+        <div class="block">
+            <label>any of these words:</label>
+            <input size="60" type="text" name="as_oq">
+            <span>Type OR between all the words you want: miniature OR standard</span>
+        </div>
+        <div class="block">
+            <label>none of these words:</label>
+            <input size="60" type="text" name="as_eq">
+            <span>Put a minus sign just before words that you don't want: -rodent, -"Jack Russell"</span>
+        </div>
+        <div class="block">
+            <label>numbers ranging from:</label>
+            <input type="text" size="25" name="as_nlo">
+            <span style="margin: 10pt;">to</span>
+            <input type="text" size="25" name="as_nhi">
+            <span>Put two full stops between the numbers and add a unit of measurement: 10..35 kg, £300..£500, 2010..2011</span>
+        </div>
+    </form>
+    <input type="submit" value="Submit" form="GoogleForm">
+    
+    
+
 </body>
 </html>
