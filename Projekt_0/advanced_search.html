@@ -31,40 +31,19 @@
             </ul>
         </div>      
     </nav>
-
+    <!-- Advaned Search Subtitle -->
     <div class="advSearchTitle">
         Advanced Search
     </div>
-
+    <!-- Separation Line -->
     <div class="line"></div>
-
-    <!-- <div class="lineTitles">
-        <div class="leftCol">
-            <span class="leftTitleTxt"> Find pages with...</span> <br>
-            <span class="test"> all these words: </span> <br>
-            <span class="test"> this exact word or phrase: </span> <br>
-            <span class="test"> any of these words: </span> <br>
-            <span class="test"> none of these words: </span> <br>
-            <span class="test"> numbers ranging from: </span> 
-        </div>
-        <div class="centerCol">
-            <br><br>
-            <form id="GoogleForm" action="https://google.com/search">
-                <input class="formElem-big" type="text" name="as_q"><br>
-                <input class="formElem-big" style="margin-top: 10pt" type="text" name="as_epq"><br>
-                <input class="formElem-big" style="margin-top: 10pt" type="text" name="as_oq"><br>
-                <input class="formElem-big" style="margin-top: 10pt" type="text" name="as_eq"><br>
-                <input class="formElem-small" type="text" name="as_nlo"> to <input class="formElem-small" type="text" name="as_nhi"><br>
-            </form>    
-        </div>
-        <div class="rightCol">To do this in the search box</div>
-    </div> <br> -->
-
+    <!-- Form Titles -->
     <div class="Titles">
         <div class="topSpan1">Find pages with ...</div> 
         <div class="emptyDiv"></div>
         <div class="topSpan2">To do this in the search box.</div>
     </div>
+    <!-- Advanced Search Form  -->
     <form id="GoogleForm" action="https://google.com/search">
         <div class="block">
             <label for="leftLabel">all these words:</label>
@@ -88,13 +67,21 @@
         </div>
         <div class="block">
             <label>numbers ranging from:</label>
-            <input type="text" class="smallInputField" size="39" name="as_nlo">
-            <span style="margin: 10pt;">to</span>
-            <input type="text" class="smallInputField" size="39" name="as_nhi">
+            <div class="twoFieldDiv">
+                <input type="text" class="smallInputField" name="as_nlo">
+                <div class="twoFieldText">to</div>
+                <input type="text" class="smallInputField" name="as_nhi">
+            </div>
             <div class="description">Put two full stops between the numbers and add a unit of measurement: <br> 10..35 kg, £300..£500, 2010..2011</div>
         </div>
     </form>
-    <input type="submit" value="Submit" form="GoogleForm">
+    <!-- Advanced Search search Button -->
+    <div class="Titles">
+        <div class="topSpan1"></div> 
+        <div class="emptyDiv"> <input class="submitBtn" type="submit" value="Advanced Search" form="GoogleForm"> </div>
+        <div class="topSpan2"></div>
+    </div>
+    
     
     
 

@@ -137,49 +137,88 @@ form.searchbar-GoogleSearch button:hover{
 
 /* Right Side Description  */
 .description{
-    margin: 0 5pt;
+    margin: 0 7pt;
     display: inline-flex;
     width: 300pt;
-    font-size: 9pt;
+    font-size: 8pt;
     vertical-align: middle;
 }
 
 /* Input Fields  */
+.twoFieldDiv{
+    display: inline-flex;
+    min-width: 167px;
+    width: 30%;
+    vertical-align: middle;
+}
+
+.twoFieldText{
+    margin: auto 16pt;
+}
+
 .inputField{
     height: 22pt;
     min-width: 50pt;
     width: 30%;
+    padding: 5pt;
 }
 
 .smallInputField{
+    float: 1;
     height: 22pt;
     min-width: 50pt;
-    width: 13.8%;
+    flex: 1;
+    padding: 5pt;
+}
+
+input:focus{
+    border: 1px solid #3079ed;
+    
 }
 
 /* Titles Line Elements  */
-.Titles{
+.Titles {
     margin-bottom: 13pt;
 }
 
-.topSpan1{
+.topSpan1 {
     display: inline-block;
     margin-left: 35pt;
+    min-width: 127px;
 }
 
-.emptyDiv{
+.emptyDiv {
     display: inline-block;
     min-width: 160pt;
     width: 32%;
 }
 
-.topSpan2{
+.topSpan2 {
     display: inline-block;
+    color: #777;
+    font-weight: 610;
+    font-size: 9.5pt;
 }
 
-/* Label settings  */
+/* Submit Button  */
+.submitBtn {
+    background-color: #4d90fe;
+    margin: 10px 0;
+    box-shadow: none;
+    border: 1px solid #3079ed;
+    color: #fff;
+    border-radius: 2px;
+    text-align: center;
+    padding: 0 12px;
+    float: right;
+    height: 30px;
+    cursor: default;
+}
+
+/* Label settings (left side text) */
 label {
     display: inline-block;
     width: 180px;
     text-align: left;
-}​
+}
+
