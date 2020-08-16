@@ -9,13 +9,21 @@ logger = logging.getLogger(__name__)
 def index(request):
     if request.method == "POST":
         entry = request.POST.get("entry")
+        # Empty search case
         if not request.POST.get("entry"):
             return redirect("index")
-        return redirect("entry", entry=entry)
-
+        else:
+            # Entry found case
+            if entry in util.list_entries():
+                return redirect("entry", entry=entry)
+            else:
+                # Entry not found case
+                matches = [i for i in util.list_entries() if entry in i]
+                return render(request, "encyclopedia/index.html", {
+                    "entries": matches})   
+    
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
-    })
+        "entries": util.list_entries()})
 
 
 def entry(request, entry):
