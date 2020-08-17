@@ -36,3 +36,11 @@ textarea {
 .sidebar h2 {
     margin-top: 5px;
 }
+
+.div-form label, .div-form input {
+    display: block;
+}
+
+.alert {
+    width: 80%;
+}
