@@ -1,0 +1,23 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New Page
+{% endblock %}
+
+{% block body %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <h1>Create a new Wiki Entry</h1>
+    <form action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        <div class="div-form">
+            {{ form }}
+            <input class="btn btn-primary" type="submit" value="Create Wiki Page">
+        </div>
+    </form>
+{% endblock %}
