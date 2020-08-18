@@ -39,8 +39,13 @@ textarea {
 
 .div-form label, .div-form input {
     display: block;
+    margin-top: 10px;
 }
 
 .alert {
     width: 80%;
+}
+
+.btn {
+    margin-top: 10px;
 }

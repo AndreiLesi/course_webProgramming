@@ -9,5 +9,8 @@
         <h1> The requested page was not found. </h1>
     {% else %}
         {{ entry|safe }}
+    <form action="{% url 'edit' title %}">
+        <input class="btn btn-primary" type="submit" value="Edit Page">
+    </form>
     {% endif %}
 {% endblock %}

@@ -1,3 +1,4 @@
+import random
 import logging
 import markdown as md
 from django.shortcuts import render, redirect
@@ -12,38 +13,39 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     if request.method == "POST":
-        entry = request.POST.get("entry")
-        # Empty search case
-        if not entry:
+        title = request.POST.get("entry")
+        # Empty search input case
+        if not title:
             return redirect("index")
         else:
             # Entry found case
             entriesList = list(map(str.lower, util.list_entries()))
-            if entry.lower() in entriesList:
-                entry = util.list_entries()[entriesList.index(entry.lower())]
-                return redirect("entry", entry=entry)
+            if title.lower() in entriesList:
+                title = util.list_entries()[entriesList.index(title.lower())]
+                return redirect("entry", title=title)
             else:
-                # Entry not found case
-                matches = [i for i in entriesList if entry.lower() in i]
+                # Entry not found case -> search for case insensitive machtes 
+                matches = [i for i in entriesList if title.lower() in i]
                 matchIndexes = [entriesList.index(i) for i in matches]
                 matches = [util.list_entries()[i] for i in matchIndexes]
                 return render(request, "encyclopedia/index.html", {
                     "entries": matches})   
 
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()})
+        "entries": util.list_entries()
+        })
 
 
-def entry(request, entry):
+def entry(request, title):
     # Check if entry exists
-    if entry in util.list_entries():
-        entryHTML = md.markdown(util.get_entry(entry))
+    if title in util.list_entries():
+        entryHTML = md.markdown(util.get_entry(title))
     else:
         entryHTML = False
 
     return render(request, "encyclopedia/entry.html", {
         "entry": entryHTML,
-        "title": entry
+        "title": title,
     })
 
 
@@ -57,17 +59,31 @@ def newPage(request):
             entriesList = list(map(str.lower, util.list_entries()))
             if title.lower() not in entriesList:
                 util.save_entry(title,description)
-                logger.warning(f"Added {title} to the wiki!")
-                return redirect("entry", entry=title)
+                return redirect("entry", title=title)
             else:
                 messages.error(request, f"{title} already exists")
-                print(f"{title} exits")
-                print(util.list_entries())
 
     return render(request, "encyclopedia/newPage.html", {
         "form": newEntry,
     })
 
-def editPage(request,entry):
-    pass
+
+def editPage(request, title):
+    newEntry = newEntryForm()
+    if request.method == "POST":
+        newEntry = newEntryForm(request.POST)
+        if newEntry.is_valid():
+            print("cleandata POST: ", newEntry.cleaned_data["description"])
+            util.save_entry(newEntry.cleaned_data["title"],
+                            newEntry.cleaned_data["description"])
+            return redirect("entry", title=newEntry.cleaned_data["title"])
+
+    newEntry.fields['title'].initial = title
+    newEntry.fields['description'].initial = util.get_entry(title)
+    print("Lines here")
+    print(util.get_entry(title))
+    return render(request, "encyclopedia/editPage.html", {
+        "title": title,
+        "form": newEntry
+    })
 

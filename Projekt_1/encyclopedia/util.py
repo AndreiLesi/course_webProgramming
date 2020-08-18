@@ -22,7 +22,9 @@ def save_entry(title, content):
     filename = f"entries/{title}.md"
     if default_storage.exists(filename):
         default_storage.delete(filename)
-    default_storage.save(filename, ContentFile(content))
+    # encode is used to send content as byte string and not have it use the 
+    # CRLF Windows ending which adds extra newlines when reading
+    default_storage.save(filename, ContentFile(str.encode(content)))
 
 
 def get_entry(title):
