@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <div class="form-div">
+        <h1 class="display-4 text-center mb-5" >Create a new Listing</h1>
+
+        {% if message %}
+            <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endif %}
+
+ 
+        <form action="{% url 'create' %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label> {{ field.label }} </label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <input class="btn btn-primary" type="submit" value="Create Listing"> 
+        </form>
+    </div>
+
+    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+
+{% endblock %}

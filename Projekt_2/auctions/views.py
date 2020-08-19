@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import User, Listing
+from .forms import ListingForm
 
 
 def index(request):
@@ -63,3 +64,23 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+
+def create(request):
+    form = ListingForm(request.POST or None)
+
+    if request.method == "POST":
+        if form.is_valid():
+            formModel = form.save(commit=False)
+            formModel.createdBy = request.user
+            formModel.currentPrice = data.startingPrice
+            formModel.save()
+            context = {
+                'form': form
+            }
+            return render(request, "auctions/create.html", context)
+
+    context = {
+        'form': form
+    }
+    return render(request, "auctions/create.html", context)
