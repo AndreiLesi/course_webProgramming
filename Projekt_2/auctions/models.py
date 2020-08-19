@@ -7,8 +7,8 @@ class Listing(models.Model):
                                   on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     description = models.TextField(max_length=1000)
-    startingPrice = models.IntegerField()
-    imageURL = models.URLField(blank=True)
+    startingPrice = models.FloatField()
+    imageURL = models.URLField(blank=True, null='None')
     categories = [
         ("Fashion", "Fashion"),
         ("Health", "Health"),
@@ -16,8 +16,8 @@ class Listing(models.Model):
         ("Furniture", "Furniture"), 
         ("Other", "Other")]
     category = models.CharField(max_length=64, choices=categories)
-    currentPrice = models.IntegerField(blank=True, null=True)
-    createdAt = models.DateField(auto_now_add=True)
+    currentPrice = models.FloatField(blank=True, null=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.title} by {self.createdBy}"

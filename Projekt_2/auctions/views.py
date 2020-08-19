@@ -10,7 +10,7 @@ from .forms import ListingForm
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.all()
+        "listings": Listing.objects.all()[::-1]
     })
 
 
@@ -73,7 +73,7 @@ def create(request):
         if form.is_valid():
             formModel = form.save(commit=False)
             formModel.createdBy = request.user
-            formModel.currentPrice = data.startingPrice
+            formModel.currentPrice = formModel.startingPrice
             formModel.save()
             context = {
                 'form': form

@@ -2,8 +2,21 @@ body {
     padding: 10px;
 }
 
-
-.form-div {
-    width: 70%;
-    margin: 0 auto;
+.navbar-brand {
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 5pt;
+    background-color: #E7D19A;
 }
+
+img {
+    height: 99%; 
+    width: 99%; 
+}
+
+.img-class {
+    height:300px;
+    width: auto;
+    text-align: center;
+}
+
