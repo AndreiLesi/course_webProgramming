@@ -20,3 +20,6 @@ img {
     text-align: center;
 }
 
+.rounded {
+    border-radius: 2rem!important
+}

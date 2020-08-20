@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
-from .models import User, Listing
+from .models import User, Listing, Bid
 from .forms import ListingForm
 
 
@@ -25,7 +27,10 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "auctions/login.html", {
                 "message": "Invalid username and/or password."
@@ -66,21 +71,52 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
+@login_required(login_url="/login")
 def create(request):
     form = ListingForm(request.POST or None)
 
     if request.method == "POST":
         if form.is_valid():
             formModel = form.save(commit=False)
+            if not formModel.imageURL:
+                formModel.imageURL = "https://img.icons8.com/ios/500/" \
+                                     "000000/no-image.png"
             formModel.createdBy = request.user
             formModel.currentPrice = formModel.startingPrice
             formModel.save()
-            context = {
+            return render(request, "auctions/create.html", {
                 'form': form
-            }
-            return render(request, "auctions/create.html", context)
+            })
 
-    context = {
+    return render(request, "auctions/create.html", {
         'form': form
-    }
-    return render(request, "auctions/create.html", context)
+    })
+
+
+def details(request, id):
+    entry = Listing.objects.get(id = id)
+
+    if request.method == "POST":
+        if "placeBid" in request.POST.keys():
+            bidPrice=int(request.POST["bid"])
+
+            if bidPrice > entry.currentPrice:
+                newBid = Bid(createdBy=request.user, listing=entry, 
+                            bidPrice=bidPrice)
+                newBid.save()
+                entry.currentPrice = bidPrice
+                entry.save()
+                messages.success(request, "Your bid has been succesfully placed!")
+            else: 
+                messages.success(request, "Your bid must be higher the current one!")
+
+        elif "addToWL" in request.POST.keys():
+            pass
+    
+    highestBid = entry.bids.filter(createdBy=request.user.id)
+    if highestBid:
+        highestBid = float(max(bid.bidPrice for bid in highestBid))
+    return render(request, "auctions/details.html", {
+        "listing": entry,
+        "highestBid": highestBid,
+    })
