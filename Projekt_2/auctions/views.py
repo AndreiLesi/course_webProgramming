@@ -83,6 +83,7 @@ def create(request):
                                      "000000/no-image.png"
             formModel.createdBy = request.user
             formModel.currentPrice = formModel.startingPrice
+            formModel.description = formModel.description
             formModel.save()
             return render(request, "auctions/create.html", {
                 'form': form
@@ -98,9 +99,10 @@ def details(request, id):
 
     if request.method == "POST":
         if "placeBid" in request.POST.keys():
-            bidPrice=int(request.POST["bid"])
+            bidPrice=float(request.POST["bid"])
 
-            if bidPrice > entry.currentPrice:
+            if (bidPrice > entry.currentPrice) and \
+               (bidPrice > entry.startingPrice):
                 newBid = Bid(createdBy=request.user, listing=entry, 
                             bidPrice=bidPrice)
                 newBid.save()
@@ -108,10 +110,13 @@ def details(request, id):
                 entry.save()
                 messages.success(request, "Your bid has been succesfully placed!")
             else: 
-                messages.success(request, "Your bid must be higher the current one!")
+                messages.error(request, "Your bid must be higher the current one!")
 
         elif "addToWL" in request.POST.keys():
-            pass
+            if entry in request.user.watchlist.all():
+                request.user.watchlist.remove(entry)
+            else:
+                request.user.watchlist.add(entry)
     
     highestBid = entry.bids.filter(createdBy=request.user.id)
     if highestBid:
@@ -120,3 +125,5 @@ def details(request, id):
         "listing": entry,
         "highestBid": highestBid,
     })
+
+    

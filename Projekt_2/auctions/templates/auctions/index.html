@@ -4,24 +4,26 @@
     <h1 class="display-5 text-center m-4 mb-5">Active Listings</h1>
 
     {% for listing in listings %}
-        <div class="container my-4 border border-secondary rounded">
-            <div class="row equal">
-                <div class="col-md-5 col-sd-12">
+    <div class="container my-4 border border-secondary rounded">
+        <div class="row equal">
+            <div class="col-md-5 col-sd-12">
+                <a href="{% url 'details' listing.id %}" class="stretched-link">
                     <div class="img-class">
                         <img src= {{ listing.imageURL }} alt="No image uploaded">      
                     </div>
-                </div>
-                <div class="col-md-7 col-sd-12">
-                    <h4 class="card-title my-2">{{ listing.title }}</h4>
-                        {{ listing }} 
-                    <p class="card-text">Description</p>
-                    <p class="">Created {{ listing.createdAt }}</p>
-                    <a href="{% url 'details' listing.id %}" class="btn btn-primary">View Listing</a>
-                </div>
+                </a>
+            </div>
+            <div class="col-md-7 col-sd-12">
+                <h4 class="card-title my-3">{{ listing.title }}</h4>
+                <span class="truncated">{{ listing.description }} </span>
+                <a href="{% url 'details' listing.id %}" class="btn btn-primary stretched-link">View Listing</a>
+                <p class=""><small>Created {{ listing.createdAt }}</small></p>
             </div>
         </div>
+    </div>
     {% empty %}
         There are no listings.
     {% endfor %}
 
 {% endblock %}
+

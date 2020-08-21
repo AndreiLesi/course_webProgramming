@@ -6,7 +6,7 @@ class Listing(models.Model):
     createdBy = models.ForeignKey("User", related_name="listings", 
                                   on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=10000)
     startingPrice = models.FloatField()
     imageURL = models.URLField(blank=True)
     categories = [

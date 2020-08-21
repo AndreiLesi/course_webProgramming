@@ -2,39 +2,94 @@
 
 {% block body %}
 
-<div class="container-fluid w-75 border border-secondary px-0 rounded">
-    {% for message in messages %}
-        <div class="alert alert-success" role="alert">
-            {{ message }}
+<section class="py-5">
+    <div class="container-fluid w-75">
+        <div class="row">
+            <div class="col-lg-6 order-2 order-lg-1">
+
+                <!-- Title and Watchlist Icon  -->
+                <h1 class="display-4">{{ listing.title }}</h1>
+                {% if listing in request.user.watchlist.all %}
+                    <h5><span class="badge badge-secondary p-2 mt-2 ">Watchlist</span></h5>
+                {% else %}
+                <h5><span class="badge invisible p-2 mt-2 ">Watchlist</span></h5>
+                {% endif %}
+
+                <!-- Price Tag  -->
+                <h2 class="display-5 mt-5"><strong>{{ listing.currentPrice }} €</strong></h2>
+                <p> 
+                    {{ listing.bids.all|length }} bid(s) so far
+                    {% if listing.currentPrice == highestBid %}
+                        Your bid is the current bid.
+                    {% endif %}
+                </p>
+
+                <!-- Place bids form  -->
+                <form action="{% url 'details' listing.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group w-50">
+                        <input class="form-control" type="text" name="bid" placeholder="Bid">
+                    </div>
+                    <input class="btn btn-primary" name="placeBid" type="submit" value="Place Bid">
+                    {% if listing in request.user.watchlist.all %}
+                        <input class="btn btn-secondary" name="addToWL" type="submit" value="Remove from Watchlist">
+                    {% else %}
+                        <input class="btn btn-secondary" name="addToWL" type="submit" value="Add to Watchlist">
+                    {% endif %}
+                </form>
+
+                <!-- Messages  -->
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                            <div class="alert alert-success mt-3 text-center" role="alert">
+                                {{ message }}
+                            </div>
+                        {% elif  message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger mt-3 text-center" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                <div class="alert alert-danger mt-3 invisible" role="alert">
+                    Message Placeholder - Invisible
+                </div>
+                {% endif %}
+
+                <!-- Details  -->
+                <table class="table mt-5 mb-4 responsive">
+                    <tbody>
+                      <tr>
+                        <td>Category</td>
+                        <td class="text-right">{{ listing.category }}</td>
+                      </tr>
+                      <tr>
+                        <td>Listed By</td>
+                        <td class="text-right">{{ listing.createdBy }}</td>
+                      </tr>
+                      <tr>
+                        <td>Listed on</td>
+                        <td class="text-right">{{ listing.createdAt }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            
+            <!-- Image  -->
+            <div class="col-lg-6 order-1 order-lg-2 mb-5 mb-lg-0 d-flex justify-content-md-center">
+                <img class="img" src= {{ listing.imageURL }} alt="">
+            </div>
+
+            <!-- Description -->
+            </div>
+                <span class="text">
+                    {{ listing.description }}
+                </span>
+            </div>
         </div>
-    {% endfor %}
-    <h1 class="my-4 text-center">My Listing</h1>
-    <div class="container col-md-6 col-md-offset-3">
-        <img src= {{ listing.imageURL }}  class="img-fluid">
-        {% if request.user.id in listing.watchers.all %}
-            <h4><span class="badge badge-secondary p-2 ">Watchlist</span></h4>
-        {% endif %}
     </div>
+</section>
 
-    <h1 class="display-4 mt-4"><strong>{{ listing.currentPrice }} €</strong></h1>
-    <p> 
-        {{ listing.bids.all|length }} bid(s) so far
-        {% if listing.currentPrice == highestBid %}
-            Your bid is the current bid.
-        {% endif %}
-    </p>
-
-    <form action="{% url 'details' listing.id %}" method="post">
-        {% csrf_token %}
-        <div class="form-group w-25">
-            <input class="form-control" type="text" name="bid" placeholder="Bid">
-        </div>
-        <input class="btn btn-primary" name="placeBid" type="submit" value="Place Bid">
-        {% if not request.user.id in listing.watchers.all %}
-            <input class="btn btn-secondary" name="addToWL" type="submit" value="Add to Watchlist">
-        {% endif %}
-    </form>
-
-</div>
         
 {% endblock %}
