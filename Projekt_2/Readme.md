@@ -10,6 +10,7 @@ What works as of know:
 
 * login
 * register
+* admin web-page
 * database is set up
 * view all listings page (also homepage for now)
 * create listng 
