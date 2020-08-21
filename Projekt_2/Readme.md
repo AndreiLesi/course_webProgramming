@@ -6,9 +6,18 @@ Design an eBay-like e-commerce auction site that will allow users to post auctio
 
 **WORK IN PROGRESS**
 
-as of know the admin website (http://127.0.0.1:8000/admin/), login/logout functionalities are only developed and the database stucture is setup.
-       
-Login credentials: 
-user=Admin 
-pw=Admin 
-    
+What works as of know:
+
+* login
+* register
+* database is set up
+* view all listings page (also homepage for now)
+* create listng 
+* listing details
+* bid on listing (partially works, still in progrerss )
+
+ **Admin login redentials:**
+ 
+       username = Admin
+ 
+       pw = Admin
