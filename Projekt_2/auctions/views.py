@@ -12,7 +12,8 @@ from .forms import ListingForm
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.all()[::-1]
+        "listings": Listing.objects.all()[::-1],
+        "viewType": 0
     })
 
 
@@ -98,7 +99,7 @@ def details(request, id):
     entry = Listing.objects.get(id = id)
 
     if request.method == "POST":
-        if "placeBid" in request.POST.keys():
+        if "placeBid" in request.POST.keys() and request.POST["bid"]:
             bidPrice=float(request.POST["bid"])
 
             if (bidPrice > entry.currentPrice) and \
@@ -126,4 +127,31 @@ def details(request, id):
         "highestBid": highestBid,
     })
 
-    
+
+def watchlist(request):
+    return render(request, "auctions/index.html", {
+        "listings": request.user.watchlist.all()[::-1],
+        "viewType": 1
+    })
+
+
+def categories(request):
+    categoriesAndIcons = [("Books", "fa-book"), 
+                          ("Beauty & Personal Care","fa-hand-holding-medical"),
+                          ("Fashion","fa-tshirt"),("Home & Kitchen","fa-couch"),
+                          ("Music, CD's and Viny","fa-record-vinyl"), 
+                          ("Sports & Outdoor","fa-running"), 
+                          ("Technology","fa-laptop"),
+                          ("Other","fa-angle-double-right")]
+
+    return render(request, "auctions/categories.html", {
+        "categoriesAndIcons": categoriesAndIcons
+    })
+
+
+def category(request, category):
+    return render(request, "auctions/index.html", {
+        "listings": Listing.objects.filter(category=category)[::-1],
+        "viewType": 2,
+        "category": category
+    })

@@ -14,7 +14,7 @@ nav {
     background-color: #E7D19A;
 }
 
-img {
+.img-class img, .img-details{
     height: 90%; 
     width: auto; 
 }
@@ -31,14 +31,17 @@ img {
     border-radius: 2rem!important
 }
 
-.truncated {
-    overflow: hidden;
-    display: block;
-    height: 100px;
-    white-space: wrap;
-    text-overflow: ellipsis;
-}
 
 .text {
     white-space: pre-line;
+}
+
+
+.truncated {
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

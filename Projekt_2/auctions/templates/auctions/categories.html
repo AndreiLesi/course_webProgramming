@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1 class="display-5 text-center m-4 mb-5"> <strong> Categories </strong></h1>
+
+    <div class="container">
+        <div class="row">
+            {% for category, label in categoriesAndIcons %}
+            <div class="col-sm-6 col-md-4 my-4">
+                <div class="card">
+                    <div class="card-img-top text-center">
+                        <a href="{% url 'category' category %}" class="stretched-link"></a>
+                        <i class="fas {{ label }} fa-9x card-img-top my-5"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ category }}</h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+

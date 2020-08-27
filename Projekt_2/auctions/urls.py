@@ -8,39 +8,8 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     path("create", views.create, name="create"),
-    path("details/<int:id>", views.details, name="details")
+    path("details/<int:id>", views.details, name="details"),
+    path("watchlist", views.watchlist, name="watchlist"),
+    path("categories", views.categories, name="categories"),
+    path("categories/<str:category>", views.category, name="category")
 ]
-
-
-# def details(request, id):
-#     print(f"Request id was : {id}")
-#     entry = Listing.objects.get(id = id)
-
-#     if request.method == "POST":
-#         bidPrice=int(request.POST["bid"])
-#         if "placeBid" in request.POST.keys():
-#             print(type(bidPrice))
-#             print(type(entry.currentPrice))
-
-#             if bidPrice > entry.currentPrice:
-#                 newBid = Bid(createdBy=request.user, listing=entry, 
-#                             bidPrice=bidPrice)
-#                 newBid.save()
-#                 entry.currentPrice = bidPrice
-#                 entry.save()
-#                 messages.success(request, "Your bid has been succesfully placed!")
-#             else: 
-#                 messages.success(request, "Your bid must be higher the current one!")
-
-#         elif "addToWL" in request.POST.keys():
-#             pass
-
-#         # return redirect("details", id=title)
-
-    
-#     highestBid = entry.bids.filter(createdBy=request.user.id)
-#     return render(request, "auctions/details.html", {
-#         "listing": entry,
-#         "userBids": highestBid,
-#         "id": id
-#     })

@@ -10,10 +10,12 @@ class Listing(models.Model):
     startingPrice = models.FloatField()
     imageURL = models.URLField(blank=True)
     categories = [
-        ("Fashion", "Fashion"),
-        ("Health", "Health"),
+        ("Books", "Books"),
         ("Technology", "Technology"), 
-        ("Furniture", "Furniture"), 
+        ("Home", "Home"),
+        ("Sports & Outdoors", "Sports & Outdoors"), 
+        ("Beauty & Personal Care", "Beauty & Personal Care"),
+        ("Fashion", "Fashion"),
         ("Other", "Other")]
     category = models.CharField(max_length=64, choices=categories)
     currentPrice = models.FloatField(blank=True, null=True)

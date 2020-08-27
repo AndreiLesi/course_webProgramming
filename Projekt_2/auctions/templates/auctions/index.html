@@ -1,28 +1,45 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h1 class="display-5 text-center m-4 mb-5">Active Listings</h1>
+    <h1 class="display-5 text-center m-4 mb-5 font-weight-bold">
+    {% if viewType == 0 %}
+        Active Listings
+    {% elif viewType == 1 %}
+        My Watchlist
+    {% elif viewType == 2 %}
+        Category: {{ category }}
+    {% endif %}
+    </h1>
 
     {% for listing in listings %}
-    <div class="container my-4 border border-secondary rounded">
-        <div class="row equal">
-            <div class="col-md-5 col-sd-12">
-                <a href="{% url 'details' listing.id %}" class="stretched-link">
-                    <div class="img-class">
-                        <img src= {{ listing.imageURL }} alt="No image uploaded">      
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-7 col-sd-12">
-                <h4 class="card-title my-3">{{ listing.title }}</h4>
-                <span class="truncated">{{ listing.description }} </span>
-                <a href="{% url 'details' listing.id %}" class="btn btn-primary stretched-link">View Listing</a>
-                <p class=""><small>Created {{ listing.createdAt }}</small></p>
+        <div class="container my-4 border border-secondary rounded">
+            <div class="row equal">
+                <div class="col-md-5 col-sd-12">
+                    <a href="{% url 'details' listing.id %}" class="stretched-link">
+                        <div class="img-class">
+                            <img src= {{ listing.imageURL }} alt="No image uploaded">      
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-7 col-sd-12">
+                    <h3 class="card-title my-3"> <strong>{{ listing.title }}</strong></h3>
+                    <h4 class="my-3"><strong>Price:</strong> {{ listing.currentPrice }} €</h4>
+                    <span class="truncated my-2">{{ listing.description }} </span>
+                    <a href="{% url 'details' listing.id %}" class="btn btn-primary stretched-link my-2">View Listing</a>
+                    <p class=""><small>Created {{ listing.createdAt }}</small></p>
+                </div>
             </div>
         </div>
-    </div>
     {% empty %}
-        There are no listings.
+        <div class="container my-5 text-center">
+            {% if viewType == 0 %}
+                There are no listings.
+            {% elif viewType == 1 %}
+                There are no items in your watchlist. 
+            {% elif viewType == 2 %}
+                There are no items listed in this category.
+            {% endif %}
+        </div>
     {% endfor %}
 
 {% endblock %}
