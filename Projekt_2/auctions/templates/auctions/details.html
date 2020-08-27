@@ -18,25 +18,42 @@
                 <!-- Price Tag  -->
                 <h2 class="display-5 mt-5"><strong>{{ listing.currentPrice }} €</strong></h2>
                 <p> 
-                    {{ listing.bids.all|length }} bid(s) so far
-                    {% if listing.currentPrice == highestBid %}
+                    {{ listing.bids.all|length }} bid(s) so far.
+                    {% if highestBidder == user %}
                         Your bid is the current bid.
                     {% endif %}
                 </p>
 
                 <!-- Place bids form  -->
-                <form action="{% url 'details' listing.id %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-group w-50">
-                        <input class="form-control" type="text" name="bid" placeholder="Bid">
-                    </div>
-                    <input class="btn btn-primary" name="placeBid" type="submit" value="Place Bid">
-                    {% if listing in request.user.watchlist.all %}
-                        <input class="btn btn-secondary" name="addToWL" type="submit" value="Remove from Watchlist">
-                    {% else %}
-                        <input class="btn btn-secondary" name="addToWL" type="submit" value="Add to Watchlist">
+                {% if listing.isActive and user.is_authenticated %}
+                    <form action="{% url 'details' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group w-50">
+                            <input class="form-control" type="text" name="bid" placeholder="Bid">
+                        </div>
+                        <input class="btn btn-primary" name="placeBid" type="submit" value="Place Bid">
+
+                        {% if listing in request.user.watchlist.all %}
+                            <input class="btn btn-secondary" name="addToWL" type="submit" value="Remove from Watchlist">
+                        {% else %}
+                            <input class="btn btn-secondary" name="addToWL" type="submit" value="Add to Watchlist">
+                        {% endif %}
+
+                        {% if user == listing.createdBy %}
+                            <input class="btn btn-success" name="closeAuction" type="submit" value="Close Auction">
+                        {% endif %}
+                    </form>
+                {% else %}
+                    {% if not listing.isActive %}
+                        <div>
+                            This auction is no longer active.
+                        </div>
+                    {% elif not user.is_authenticated %}
+                        <div>
+                            Please log in to be able to bid.
+                        </div>
                     {% endif %}
-                </form>
+                {% endif %}
 
                 <!-- Messages  -->
                 {% if messages %}
@@ -60,18 +77,30 @@
                 <!-- Details  -->
                 <table class="table mt-5 mb-4 responsive">
                     <tbody>
-                      <tr>
-                        <td>Category</td>
-                        <td class="text-right">{{ listing.category }}</td>
-                      </tr>
-                      <tr>
-                        <td>Listed By</td>
-                        <td class="text-right">{{ listing.createdBy }}</td>
-                      </tr>
-                      <tr>
-                        <td>Listed on</td>
-                        <td class="text-right">{{ listing.createdAt }}</td>
-                      </tr>
+                        {% if not listing.isActive %}
+                        <tr>
+                            <td><strong>Winner</strong> </td>
+                            <td class="text-right"><strong>
+                                {% if user == highestBidder %}
+                                    You have won this Auction!
+                                {% else %}
+                                    {{ highestBidder }}
+                                {% endif %}
+                            </strong></td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Category</td>
+                            <td class="text-right">{{ listing.category }}</td>
+                        </tr>
+                        <tr>
+                            <td>Listed By</td>
+                            <td class="text-right">{{ listing.createdBy }}</td>
+                        </tr>
+                        <tr>
+                            <td>Listed on</td>
+                            <td class="text-right">{{ listing.createdAt }}</td>
+                        </tr>
                     </tbody>
                   </table>
             </div>
@@ -80,16 +109,47 @@
             <div class="col-lg-6 order-1 order-lg-2 mb-5 mb-lg-0 d-flex justify-content-md-center">
                 <img class="img-details" src= {{ listing.imageURL }} alt="">
             </div>
+        </div>
 
-            <!-- Description -->
+        <!-- Description -->
+        <span class="text">
+            {{ listing.description }}
+        </span>
+ 
+        <!-- Comments section  -->
+        <div class="panel panel-default widget mt-4">
+            <!-- Add your own comment  -->
+            <div class="panel-heading">
+                {% if user.is_authenticated %}
+                <h3 class="panel-title"> Post a comment </h3>
+                    <form class="mt-2" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <textarea name="comment" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post</button>
+                    </form>
+                {% else %}
+                    <h3 class="panel-title"> Comments </h3>
+                {% endif %}
             </div>
-                <span class="text">
-                    {{ listing.description }}
-                </span>
+
+            <!-- Display All Comments -->
+            <div class="panel-body mt-3">
+                <ul class="list-group">
+                    {% for comment in listing.comments.all reversed %}
+                    <li class="list-group-item my-2">
+                        <span class="text">{{ comment.description }}</span>
+                        <div class="mic-info mt-2">
+                            Posted by {{ comment.createdBy }} on {{ comment.createdAt }}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
+    
+
     </div>
 </section>
-
-        
 {% endblock %}

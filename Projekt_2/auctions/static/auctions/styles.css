@@ -1,7 +1,3 @@
-body {
-    padding: 10px;
-}
-
 nav {
     width: 100%;
     background-color: #94bbe9;
@@ -17,6 +13,9 @@ nav {
 .img-class img, .img-details{
     height: 90%; 
     width: auto; 
+    max-height: 700px;
+    max-width: 700px;
+    object-fit: scale-down;
 }
 
 .img-class {
@@ -36,7 +35,7 @@ nav {
     white-space: pre-line;
 }
 
-
+/* Index page description  */
 .truncated {
     display: block;
     display: -webkit-box;
@@ -44,4 +43,30 @@ nav {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+
+/* Comments  */
+.widget .panel-title { 
+    display:inline 
+}
+
+.widget li.list-group-item {
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+.widget li.list-group-item:hover {
+    background-color: rgba(86,61,124,.1); 
+}
+
+.widget .mic-info { 
+    color: #666666;
+    font-size: 14px; 
+}
+
+.card:hover {
+    border-color: cornflowerblue !important;
+
 }

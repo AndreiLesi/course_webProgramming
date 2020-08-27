@@ -12,7 +12,7 @@ class Listing(models.Model):
     categories = [
         ("Books", "Books"),
         ("Technology", "Technology"), 
-        ("Home", "Home"),
+        ("Home & Kitchen", "Home & Kitchen"),
         ("Sports & Outdoors", "Sports & Outdoors"), 
         ("Beauty & Personal Care", "Beauty & Personal Care"),
         ("Fashion", "Fashion"),
@@ -20,6 +20,7 @@ class Listing(models.Model):
     category = models.CharField(max_length=64, choices=categories)
     currentPrice = models.FloatField(blank=True, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
+    isActive = models.BooleanField(null=True, default=True)
 
     def __str__(self):
         return f"{self.title} by {self.createdBy}"
@@ -50,7 +51,7 @@ class Comment(models.Model):
     listing = models.ForeignKey("Listing", related_name="comments", 
                                 on_delete=models.CASCADE)
     description = models.TextField(max_length=1000)
-    createdAt = models.DateField(auto_now_add=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"({self.id}) {self.createdBy}'s comment on {self.listing}"

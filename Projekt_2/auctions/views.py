@@ -6,13 +6,14 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import User, Listing, Bid
+from .models import User, Listing, Bid, Comment
 from .forms import ListingForm
 
 
 def index(request):
+    # Display all active items. ViewType 0 -> use index text-fields
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.all()[::-1],
+        "listings": Listing.objects.filter(isActive=True)[::-1],
         "viewType": 0
     })
 
@@ -24,6 +25,7 @@ def login_view(request):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
+        print(username, password, user)
 
         # Check if authentication successful
         if user is not None:
@@ -77,6 +79,7 @@ def create(request):
     form = ListingForm(request.POST or None)
 
     if request.method == "POST":
+        # create a new Listing if all the inputs are valid and display it
         if form.is_valid():
             formModel = form.save(commit=False)
             if not formModel.imageURL:
@@ -84,11 +87,8 @@ def create(request):
                                      "000000/no-image.png"
             formModel.createdBy = request.user
             formModel.currentPrice = formModel.startingPrice
-            formModel.description = formModel.description
             formModel.save()
-            return render(request, "auctions/create.html", {
-                'form': form
-            })
+            return redirect(details, id = formModel.id)
 
     return render(request, "auctions/create.html", {
         'form': form
@@ -99,6 +99,8 @@ def details(request, id):
     entry = Listing.objects.get(id = id)
 
     if request.method == "POST":
+
+        # if a bid is placed check it and add it to the database
         if "placeBid" in request.POST.keys() and request.POST["bid"]:
             bidPrice=float(request.POST["bid"])
 
@@ -109,26 +111,46 @@ def details(request, id):
                 newBid.save()
                 entry.currentPrice = bidPrice
                 entry.save()
-                messages.success(request, "Your bid has been succesfully placed!")
+                messages.success(request, 
+                                 "Your bid has been succesfully placed!")
             else: 
-                messages.error(request, "Your bid must be higher the current one!")
+                messages.error(request, 
+                               "Your bid must be higher the current one!")
 
+        # Add or remove item to the watchlist 
         elif "addToWL" in request.POST.keys():
             if entry in request.user.watchlist.all():
                 request.user.watchlist.remove(entry)
             else:
                 request.user.watchlist.add(entry)
+
+        # Add comment to the database if made
+        elif "comment" in request.POST.keys():
+            comment = Comment(createdBy=request.user, 
+                              description=request.POST["comment"],
+                              listing=entry)
+            comment.save()
+
+        # close auction, disable listing and show winner 
+        elif "closeAuction" in request.POST.keys():
+            entry.isActive = False
+            entry.save()
     
-    highestBid = entry.bids.filter(createdBy=request.user.id)
-    if highestBid:
-        highestBid = float(max(bid.bidPrice for bid in highestBid))
+    # get highest bidder from database
+    if entry.bids.all():
+        highestBidder = entry.bids.latest("bidPrice").createdBy
+    else:
+        highestBidder = "None"
+
     return render(request, "auctions/details.html", {
         "listing": entry,
-        "highestBid": highestBid,
+        "highestBidder": highestBidder,
     })
 
 
+
 def watchlist(request):
+    # Display all watchlist items. ViewType 1 -> use watchlist text-fields
     return render(request, "auctions/index.html", {
         "listings": request.user.watchlist.all()[::-1],
         "viewType": 1
@@ -136,9 +158,11 @@ def watchlist(request):
 
 
 def categories(request):
+    # create a categories name and icons lookup table for looping 
     categoriesAndIcons = [("Books", "fa-book"), 
                           ("Beauty & Personal Care","fa-hand-holding-medical"),
-                          ("Fashion","fa-tshirt"),("Home & Kitchen","fa-couch"),
+                          ("Fashion","fa-tshirt"),
+                          ("Home & Kitchen","fa-couch"),
                           ("Music, CD's and Viny","fa-record-vinyl"), 
                           ("Sports & Outdoor","fa-running"), 
                           ("Technology","fa-laptop"),
@@ -150,6 +174,7 @@ def categories(request):
 
 
 def category(request, category):
+    # Display all items in a category. ViewType 2 -> use category text-fields
     return render(request, "auctions/index.html", {
         "listings": Listing.objects.filter(category=category)[::-1],
         "viewType": 2,

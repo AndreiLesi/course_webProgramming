@@ -9,15 +9,8 @@
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
     <body>
-        <div>
-            {% if user.is_authenticated %}
-                Signed in as <strong>{{ user.username }}</strong>.
-            {% else %}
-                Not signed in.
-            {% endif %}
-        </div>
-
-        <nav class="navbar navbar-expand-sm navbar-light py-2 sticky-top">
+        <!-- Nav-Bar Left side -->
+        <nav class="navbar navbar-expand-sm navbar-light sticky-top">
             <a href="" class="navbar-brand">Thrifty.io</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
@@ -39,6 +32,7 @@
                 </ul>
             </div>
 
+            <!-- Nav-Bar Right Side  -->
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
