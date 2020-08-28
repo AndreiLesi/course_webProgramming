@@ -7,23 +7,22 @@ class Listing(models.Model):
                                   on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     description = models.TextField(max_length=10000)
-    startingPrice = models.FloatField()
+    price = models.FloatField()
     imageURL = models.URLField(blank=True)
     categories = [
         ("Books", "Books"),
         ("Technology", "Technology"), 
         ("Home & Kitchen", "Home & Kitchen"),
-        ("Sports & Outdoors", "Sports & Outdoors"), 
+        ("Sports & Outdoor", "Sports & Outdoor"), 
         ("Beauty & Personal Care", "Beauty & Personal Care"),
         ("Fashion", "Fashion"),
         ("Other", "Other")]
     category = models.CharField(max_length=64, choices=categories)
-    currentPrice = models.FloatField(blank=True, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     isActive = models.BooleanField(null=True, default=True)
 
     def __str__(self):
-        return f"{self.title} by {self.createdBy}"
+        return f"{self.title}"
 
 
 class User(AbstractUser):
@@ -42,7 +41,7 @@ class Bid(models.Model):
     bidPrice = models.IntegerField()
 
     def __str__(self):
-        return f"({self.id}) {self.createdBy} bid {self.bidPrice} for {self.listing}"
+        return f"{self.createdBy} bid {self.bidPrice} for {self.listing}"
 
 
 class Comment(models.Model):
@@ -54,4 +53,4 @@ class Comment(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"({self.id}) {self.createdBy}'s comment on {self.listing}"
+        return f"{self.createdBy}'s comment on {self.listing}"

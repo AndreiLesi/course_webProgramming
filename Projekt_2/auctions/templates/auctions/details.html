@@ -16,7 +16,7 @@
                 {% endif %}
 
                 <!-- Price Tag  -->
-                <h2 class="display-5 mt-5"><strong>{{ listing.currentPrice }} €</strong></h2>
+                <h2 class="display-5 mt-5"><strong>{{ listing.price }} €</strong></h2>
                 <p> 
                     {{ listing.bids.all|length }} bid(s) so far.
                     {% if highestBidder == user %}

@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-7 col-sd-12">
                     <h3 class="card-title my-3"> <strong>{{ listing.title }}</strong></h3>
-                    <h4 class="my-3"><strong>Price:</strong> {{ listing.currentPrice }} €</h4>
+                    <h4 class="my-3"><strong>Price:</strong> {{ listing.price }} €</h4>
                     <span class="truncated my-2">{{ listing.description }} </span>
                     <a href="{% url 'details' listing.id %}" class="btn btn-primary stretched-link my-2">View Listing</a>
                     <p class=""><small>Created {{ listing.createdAt }}</small></p>

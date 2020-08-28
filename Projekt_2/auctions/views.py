@@ -86,7 +86,7 @@ def create(request):
                 formModel.imageURL = "https://img.icons8.com/ios/500/" \
                                      "000000/no-image.png"
             formModel.createdBy = request.user
-            formModel.currentPrice = formModel.startingPrice
+            # formModel.currentPrice = formModel.startingPrice
             formModel.save()
             return redirect(details, id = formModel.id)
 
@@ -104,12 +104,11 @@ def details(request, id):
         if "placeBid" in request.POST.keys() and request.POST["bid"]:
             bidPrice=float(request.POST["bid"])
 
-            if (bidPrice > entry.currentPrice) and \
-               (bidPrice > entry.startingPrice):
+            if (bidPrice > entry.price) or \
+               (not entry.bids.all() and bidPrice >= entry.price):
                 newBid = Bid(createdBy=request.user, listing=entry, 
                             bidPrice=bidPrice)
                 newBid.save()
-                entry.currentPrice = bidPrice
                 entry.save()
                 messages.success(request, 
                                  "Your bid has been succesfully placed!")

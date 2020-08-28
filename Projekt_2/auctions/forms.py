@@ -16,7 +16,7 @@ class ListingForm(ModelForm):
             {"placeholder": "Choose a Title for your listing"})
         self.fields["description"].widget.attrs.update(
             {"placeholder": "Describe your product"})
-        self.fields["startingPrice"].widget.attrs.update(
+        self.fields["price"].widget.attrs.update(
             {"placeholder": "Set a starting price"})
         self.fields["imageURL"].widget.attrs.update(
             {"placeholder": 
@@ -27,10 +27,10 @@ class ListingForm(ModelForm):
 
     class Meta:
         model = Listing
-        fields = ['title', 'description', 'startingPrice', 'imageURL', 
+        fields = ['title', 'description', 'price', 'imageURL', 
                   'category']
         labels = {
-            "startingPrice": "Starting Price",
+            "price": "Starting Price",
             "imageURL": "Image Link"
         }
         
