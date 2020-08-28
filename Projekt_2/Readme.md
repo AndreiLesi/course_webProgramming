@@ -20,7 +20,22 @@ Complete the implementation of your auction site. You must fulfill the following
 * Django Admin Interface: Via the Django admin interface, a site administrator should be able to view, add, edit, and delete any listings, comments, and bids made on the site.
 
 
- **Admin login redentials:** --> can also access the /admin Page
+## How to load the Projects:
+
+To start the project open a console terminal in the main folder (where manage.py is located) and run :
+
+    python mange.py runserver
+
+To view the page go to:
+
+    http://127.0.0.1:8000/      
+
+Note: Make sure all required packages are available in your Python environment (a list of those requirements will be added here shortly).
+
+## How to use site:
+Visit Site without being logged in, create an account, login into that account (new options will be available in the navigation bar such as create listing, bid on listing, close listing (if it is yours), add items to watchlist, see your watchlist, comment on listing etc.), interact with the site, change user to admin, look at admin panel etc.
+
+ **Admin login redentials:** --> can also access the http://127.0.0.1:8000/admin Page
  
        username = Admin
  
@@ -31,6 +46,3 @@ Complete the implementation of your auction site. You must fulfill the following
        username = Sven | John
  
        pw = Sven | John 
-
-## How to use site:
-Visit Site without being logged in, create an account, login into that account, interact with the site (new options will be available in the navigation bar such as create listing, bid on listing, close listing (if it is yours), add items to watchlist, see watchlist etc.), change user to admin, look at admin panel ...
