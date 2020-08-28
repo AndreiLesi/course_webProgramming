@@ -86,7 +86,6 @@ def create(request):
                 formModel.imageURL = "https://img.icons8.com/ios/500/" \
                                      "000000/no-image.png"
             formModel.createdBy = request.user
-            # formModel.currentPrice = formModel.startingPrice
             formModel.save()
             return redirect(details, id = formModel.id)
 
