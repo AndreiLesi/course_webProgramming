@@ -51,6 +51,6 @@ Use it like your own email service. The three emails below are preloaded with sa
        
 **Other existing login credentials:**
 
-       Email = Andrei@mail.com | Tom@mail.com | Mike@mail.com
+    Email = Andrei@mail.com | Tom@mail.com | Mike@mail.com
  
-       pw = Andrei | Tom | Mike
+    pw = Andrei | Tom | Mike
