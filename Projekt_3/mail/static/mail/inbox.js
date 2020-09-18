@@ -103,7 +103,7 @@ function view_email(id, mailbox) {
           compose_email();
           document.querySelector('#compose-recipients').value = email.sender;
           document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
-          document.querySelector('#compose-body').value = `\n\nOn ${email.timestamp} ${email.sender} wrote: \n${email.body}`
+          document.querySelector('#compose-body').value = `\n\n\n-- On ${email.timestamp} ${email.sender} wrote: \n${email.body}`
         }
 
         // Archive Button - not visible in sent section
@@ -128,7 +128,7 @@ function view_email(id, mailbox) {
 
         // Div for the Mail Body
         const mailSubect = document.createElement("div")
-        mailSubect.style.whiteSpace = "pre"
+        mailSubect.style.whiteSpace = "pre-wrap"
         mailSubect.innerHTML = `${email.body}`
         email_details.appendChild(mailSubect)
 
