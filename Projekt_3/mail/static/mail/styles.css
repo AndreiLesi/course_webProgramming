@@ -1,0 +1,11 @@
+textarea {
+    min-height: 400px;
+}
+
+.email {
+    border: 1px solid transparent;
+}
+
+.email:hover{
+    border: 1px solid rgb(54, 112, 170);
+}
