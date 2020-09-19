@@ -1,0 +1,64 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="container">
+    <!-- Details Table -->
+    <h2 class="text-center mt-4">
+        Profile Details 
+        {% if user.is_authenticated %}
+            <button class="btn btn-primary btn-sm">
+                {% if showFollow == 1 %}
+                    Follow
+                {% elif showFollow == 2 %}
+                    Unfollow
+                {% endif %}
+            </button>
+        {% endif %}
+        <!-- <button class="btn btn-primary btn-sm">
+        </button> -->
+    </h2>
+
+    <table class="table mt-5 mb-4 responsive">
+        <tbody>
+            <tr>
+                <td> Username </td>
+                <td class="text-right">{{ user.username }}</td>
+            </tr>
+            <tr>
+                <td>E-mail Adress</td>
+                <td class="text-right">{{ user.email }}</td>
+            </tr>
+            <tr>
+                <td># Followers</td>
+                <td class="text-right">{{ user.followers.all | length }}</td>
+            </tr>
+            <tr>
+                <td># Following</td>
+                <td class="text-right">{{ user.follows.all | length }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Post lost -->
+    <h2 class="text-center my-5">Posts</h2>
+
+    <div class="d-block mt-3">
+        {% for post in user.posts.all %}
+        <div class="card my-4">
+            <div class="card-header bg-light">
+                <h5>{{ post.creator }}
+                    <small class="text-muted"> on {{ post.timestamp }}</small>
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text content">{{ post.content }}</p>
+                </div>
+            <div class="card-footer bg-white text-center">
+                Like and Retweet
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
