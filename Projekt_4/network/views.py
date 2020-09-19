@@ -47,7 +47,7 @@ def profile(request, username):
     else:
         showFollow = 2
 
-    content = {"user": user, "showFollow": showFollow}
+    content = {"profile": user, "showFollow": showFollow}
     return render(request, "network/profile.html", content)
 
 
