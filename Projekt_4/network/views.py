@@ -4,8 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from .models import User, Post, Comment
+from .utils import getPaginator
 
 
 def index(request):
@@ -15,31 +15,14 @@ def index(request):
         newPost.save() 
 
     # Add Pagination
-    p = Paginator(Post.objects.order_by("-timestamp"), 5)
-    page_number = request.GET.get("page", 1)
-    page = p.get_page(page_number)
+    content = getPaginator(request, Post.objects.order_by("-timestamp"))
 
-    # Set previous page URL 
-    if page.has_previous():
-        previousURL = f"?page={page.previous_page_number()}"
-    else:
-        previousURL = ''
-
-    # Set next page URL 
-    if page.has_next():
-        nextURL = f"?page={page.next_page_number()}"
-    else:
-        nextURL = ''
-
-    content = {"page": page, "previousURL": previousURL, "nextURL": nextURL}
     return render(request, "network/index.html", content)
 
 
 
 def profile(request, username):
     user = User.objects.get(username=username)
-    print("user:", user)
-    print("request:", request.user)
     if request.user == user:
         showFollow = 0
     elif request.user.username in user.followers.all():
@@ -47,7 +30,10 @@ def profile(request, username):
     else:
         showFollow = 2
 
-    content = {"profile": user, "showFollow": showFollow}
+    # Add Pagination
+    content = getPaginator(request, user.posts.order_by("-timestamp"))
+    content["profile"] = user
+    content["showFollow"] = showFollow
     return render(request, "network/profile.html", content)
 
 
@@ -59,7 +45,10 @@ def following(request):
     # Merge all querysets (posts form all users) together
     for user in request.user.follows.all():
         posts = posts | user.posts.all() 
-    content = {"posts": posts.order_by("-timestamp")}
+
+    # Add Paginator
+    content = getPaginator(request, posts.order_by("-timestamp"))
+
     return render(request, "network/index.html", content)
 
 
