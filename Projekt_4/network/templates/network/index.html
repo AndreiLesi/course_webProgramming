@@ -22,6 +22,7 @@
             <h5>{{ post.creator }}
                 <small class="text-muted"> on {{ post.timestamp }}</small>
                 {% if post.creator == user %}
+                    <input type="hidden" id="post_id" value="{{ post.id }}">
                     <button type="submit" id="edit" class="btn btn-primary btn-sm float-right">Edit</button>
                 {% endif %}
             </h5>
@@ -30,7 +31,16 @@
             <p class="card-text content">{{ post.content }}</p>
           </div>
         <div class="card-footer bg-white text-center">
-            Like and Retweet
+            <small>
+                <span id="num_likes">{{ post.likes.all | length }}</span> 
+                {% if user in post.likes.all %}
+                    <input type="hidden" id="like" value="true">
+                    <button id="likeBtn" class="bg-transparent border-0 p-0 m-0"><i class="fa fa-heart text-danger"></i></button>
+                {% else %}
+                    <input type="hidden" id="like" value="false">
+                    <button id="likeBtn" class="bg-transparent border-0 p-0 m-0"><i class="far fa-heart text-danger"></i></button>
+                {% endif %}
+            </small>
         </div>
       </div>
     {% endfor %}

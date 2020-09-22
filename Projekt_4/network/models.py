@@ -21,6 +21,13 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.creator} from {self.timestamp.strftime("%d.%m.%Y %H:%M")}'
 
+    def serialize(self):
+        return {
+            # "creator": self.creator,
+            "timestamp": self.timestamp,
+            "content": self.content
+        }
+
 
 class Comment(models.Model):
     creator = models.ForeignKey(User, related_name="comments", 
