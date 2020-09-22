@@ -2,6 +2,8 @@
 
 Design a front-end for an email client that makes API calls to send and receive emails.
 
+**Note:** The focus here is mostly on JavaScript and API communcation and not so much on HTML & CSS, which is why the site looks simple.
+
 # Specification
 
 Using JavaScript, HTML, and CSS, complete the implementation of your single-page-app email client. You must fulfill the following requirements:
