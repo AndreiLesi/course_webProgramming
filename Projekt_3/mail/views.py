@@ -22,7 +22,7 @@ def index(request):
 
 
 @csrf_exempt
-@login_required
+@login_required(login_url="/login")
 def compose(request):
 
     # Composing a new email must be via POST
@@ -72,7 +72,7 @@ def compose(request):
     return JsonResponse({"message": "Email sent successfully."}, status=201)
 
 
-@login_required
+@login_required(login_url="/login")
 def mailbox(request, mailbox):
 
     # Filter emails returned based on mailbox
@@ -97,7 +97,7 @@ def mailbox(request, mailbox):
 
 
 @csrf_exempt
-@login_required
+@login_required(login_url="/login")
 def email(request, email_id):
 
     # Query for requested email
