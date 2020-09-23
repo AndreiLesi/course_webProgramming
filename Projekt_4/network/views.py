@@ -110,16 +110,12 @@ def register(request):
 @csrf_exempt
 @login_required(login_url="/login")
 def posts(request, post_id):
-
-    # Query for requested email
-    try:
-        post = Post.objects.get(creator=request.user, pk=post_id)
-    except Post.DoesNotExist:
-        return JsonResponse({"error": "Post not found."}, status=404)
-
     # Return post contents
     if request.method == "GET":
-        print(post.serialize())
+        try:
+            post = Post.objects.get(creator=request.user, pk=post_id)
+        except Post.DoesNotExist:
+            return JsonResponse({"error": "Post not found."}, status=404)
         return JsonResponse(post.serialize())
 
     # Update post content and liked posts
@@ -127,18 +123,17 @@ def posts(request, post_id):
         data = json.loads(request.body)
         # change post content if edited
         if "content" in data:
+            # Get post only if creator is the user
+            post = Post.objects.get(creator=request.user, pk=post_id)
             post.content = data["content"]
-            post.save()
         # or add post to users like list
         elif "like" in data:
-            # post = Post.objects.get(pk=post_id)
+            post = Post.objects.get(pk=post_id)
             if data["like"] == True:
-                print("Add User")
                 post.likes.add(request.user)
             else:
-                print("Remove user")
                 post.likes.remove(request.user)
-            request.user.save()
+        post.save()
         return HttpResponse(status=204)
 
     # post must be via GET or PUT

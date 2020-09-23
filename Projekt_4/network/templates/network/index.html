@@ -21,8 +21,8 @@
         <div class="card-header bg-light">
             <h5>{{ post.creator }}
                 <small class="text-muted"> on {{ post.timestamp }}</small>
+                <input type="hidden" id="post_id" value="{{ post.id }}">
                 {% if post.creator == user %}
-                    <input type="hidden" id="post_id" value="{{ post.id }}">
                     <button type="submit" id="edit" class="btn btn-primary btn-sm float-right">Edit</button>
                 {% endif %}
             </h5>
