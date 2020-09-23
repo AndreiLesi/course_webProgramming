@@ -2,71 +2,20 @@
 {% load static %}
 
 {% block body %}
-<div class="container mt-3 mb-5">
-    <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-            <textarea class="form-control" name="content" rows="5" placeholder="What's on your mind?"></textarea>
-        </div>
-        <div class="text-right">
-            <button type="submit" class="btn btn-primary ">Tweet</button>
-        </div>
-    </form>
-</div>
-
-<!-- Display posts on this page  -->
-<div class="container d-block mt-3">
-    {% for post in page.object_list %}
-    <div class="card my-3">
-        <div class="card-header bg-light">
-            <h5>{{ post.creator }}
-                <small class="text-muted"> on {{ post.timestamp }}</small>
-                <input type="hidden" id="post_id" value="{{ post.id }}">
-                {% if post.creator == user %}
-                    <button type="submit" id="edit" class="btn btn-primary btn-sm float-right">Edit</button>
-                {% endif %}
-            </h5>
-        </div>
-        <div class="card-body">
-            <p class="card-text content">{{ post.content }}</p>
-          </div>
-        <div class="card-footer bg-white text-center">
-            <small>
-                <span id="num_likes">{{ post.likes.all | length }}</span> 
-                {% if user in post.likes.all %}
-                    <input type="hidden" id="like" value="true">
-                    <button id="likeBtn" class="bg-transparent border-0 p-0 m-0"><i class="fa fa-heart text-danger"></i></button>
-                {% else %}
-                    <input type="hidden" id="like" value="false">
-                    <button id="likeBtn" class="bg-transparent border-0 p-0 m-0"><i class="far fa-heart text-danger"></i></button>
-                {% endif %}
-            </small>
-        </div>
-      </div>
-    {% endfor %}
-</div>
-
-<!-- Pagination Buttons -->
-{% if page.paginator.num_pages > 1 %}
-    <nav aria-label="..." class="mt-3">
-        <ul class="pagination justify-content-center ">
-            <li class="page-item {% if not page.has_previous %} disabled {% endif %}">
-                <a class="page-link" href="{{ previousURL }}" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            {% for i in page.paginator.page_range %}
-                {% if i == page.number %}
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="?page={{ i }}">{{ i }} <span class="sr-only">(current)</span></a>
-                    </li>
-                {% elif i >= page.number|add:-2 and i <= page.number|add:2 %}
-                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                {% endif %}
-            {% endfor %}
-            <li class="page-item {% if not page.has_next %} disabled {% endif %}">
-                <a class="page-link " href="{{nextURL}}">Next</a>
-            </li>
-        </ul>
-    </nav>
-{% endif %}
+    <div class="container mt-3 mb-5">
+        {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea class="form-control" name="content" rows="5" placeholder="What's on your mind?"></textarea>
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary ">Tweet</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+    
+    <!-- Posts are filled from the layout form where the post data is sent from django -->
 {% endblock %}
 

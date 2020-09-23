@@ -18,7 +18,7 @@ def index(request):
 
     # Add Pagination
     content = getPaginator(request, Post.objects.order_by("-timestamp"))
-
+    content["currentPage"] = "index"
     return render(request, "network/index.html", content)
 
 
@@ -50,7 +50,7 @@ def following(request):
 
     # Add Paginator
     content = getPaginator(request, posts.order_by("-timestamp"))
-
+    content["currentPage"] = "following"
     return render(request, "network/index.html", content)
 
 
