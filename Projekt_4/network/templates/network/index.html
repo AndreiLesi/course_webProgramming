@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <p class="card-text content">{{ mainPost.content }}</p>
                     </div>
-                    <div class="card-footer bg-white row-fluid text-center">
+                    <div class="border-top py-1 bg-white row-fluid text-center">
                         <span class="">
                             <span id="num_likes">{{ mainPost.likes.all | length }}</span> 
                             {% if not user.is_authenticated %}
