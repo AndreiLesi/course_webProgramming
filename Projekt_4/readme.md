@@ -28,10 +28,10 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
 
 
 # Sample Images:
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/editing.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/profileFollow.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/pagination_Likes.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/comments.JPG?raw=true)
+![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_4/editing.JPG?raw=true)
+![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_4/profileFollow.JPG?raw=true)
+![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_4/pagination_Likes.JPG?raw=true)
+![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_4/comments.JPG?raw=true)
 
 # How to load the Projects:
 
@@ -46,7 +46,7 @@ To view the page go to:
 Note: Make sure all required packages are available in your Python environment (a list of those requirements will be added here shortly).
 
 ## How to use site:
-Use it like your own email service. The three emails below are preloaded with sample-emails (Andrei@mail.com has the most). Note that this app doesn't actually send emails, therefore you cannot send an email to your private address but can only send emails to the registered users because the API's can only handle this case.  
+Use it like a twitter account. Create a account, tweet ideas, follow people, like posts, comment on posts etc.  
 
        
 **Existing login credentials (they have some posts, likes and follows already):**
