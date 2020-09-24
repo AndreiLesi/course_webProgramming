@@ -7,10 +7,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // Like button functionality
     document.querySelectorAll("#likeBtn").forEach( (button) => {
         button.onclick = () => {
-            const isliked = button.parentNode.offsetParent.querySelector("#like").value === 'true'
-            likePost(button, isliked);
+            likePost(button);
         }
     })
+
+    // Follow/Unfollow button functionality 
+    document.querySelectorAll("#followBtn").forEach( (button) => {
+        button.onclick = () => {
+            fetch("/api/follow", {
+                method: 'PUT',
+                body: JSON.stringify({
+                    profile_id: profile_id
+                })
+            })
+
+            const followBtn = document.querySelector("#followBtn")
+            if (followBtn.innerText === "Follow") {
+                followBtn.innerText = "Unfollow"
+            } else {
+                followBtn.innerText = "Follow"
+            }
+        }
+    })
+
 })
 
 
@@ -81,27 +100,25 @@ function finishEditing(prevPost, editField, btnDiv) {
 }
 
 
-function likePost(button, bool) {
+function likePost(button) {
     const post_id = button.parentNode.offsetParent.querySelector("#post_id").value
-    fetch(`/posts/${post_id}`, {
+    fetch(`/api/posts/${post_id}`, {
         method: 'PUT',
         body: JSON.stringify({
-          like: !bool
+          like: true
         })
     })
 
-    // Change like icon and count 
+    // Change like icon and count, where fa class == like & far == not like 
     const num_likes = button.parentNode.querySelector("#num_likes")
-    const symbol = button.parentNode.querySelector("#likeBtn").querySelector("i").classList
-    if (bool) {
-        button.parentNode.offsetParent.querySelector("#like").value = false
+    const symbolClasses = button.parentNode.querySelector("#likeBtn").querySelector("i").classList
+    if (symbolClasses.contains("fa")) {
         num_likes.innerText = parseInt(num_likes.innerText) - 1
-        symbol.remove("fa")
-        symbol.add("far")
+        symbolClasses.remove("fa")
+        symbolClasses.add("far")
     } else {
-        button.parentNode.offsetParent.querySelector("#like").value = true
         num_likes.innerText = parseInt(num_likes.innerText)  + 1
-        symbol.remove("far")
-        symbol.add("fa")
+        symbolClasses.remove("far")
+        symbolClasses.add("fa")
     }
 }

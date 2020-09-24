@@ -6,15 +6,16 @@
         <title>{% block title %}Social Network{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'network/styles.css' %}" rel="stylesheet">
-        <script src="{% static 'network/API.js' %}"></script>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        {% block django-to-js %}
+        {% endblock %}
+        <script type="text/javascript" src="{% static 'network/network.js' %}"></script>
     </head>
     <body>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'index' %}">Network</a>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top">
+            <a class="navbar-brand" href="{% url 'index' %}"><img id="Logo" src="http://www.icons101.com/icons/47/Icons_Material_Design_by_Rammist/128/twitter.png" alt=""></a>
           
-            <div>
+            <div class="nav">
               <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -44,6 +45,7 @@
           </nav>
         
         <div class="body">
+            
             {% block body %}
             {% endblock %}
 
@@ -63,27 +65,28 @@
                     <div class="card-body">
                         <p class="card-text content">{{ post.content }}</p>
                     </div>
-                    <div class="card-footer bg-white text-center">
-                        <small>
+                    <div class=" border-top py-1 bg-white row-fluid text-center">
+                        <span class="">
                             <span id="num_likes">{{ post.likes.all | length }}</span> 
                             {% if not user.is_authenticated %}
-                                <input type="hidden" id="like" value="true">
                                 <i class="fa fa-heart text-danger"></i>
                             {% elif user in post.likes.all %}
-                                <input type="hidden" id="like" value="true">
                                 <button id="likeBtn" class="bg-transparent border-0 p-0 m-0"><i class="fa fa-heart text-danger"></i></button>
                             {% else %}
-                                <input type="hidden" id="like" value="false">
                                 <button id="likeBtn" class="bg-transparent border-0 p-0 m-0"><i class="far fa-heart text-danger"></i></button>
                             {% endif %}
-                        </small>
+                        </span>
+                        <span class="ml-5">
+                            <span id="num_comments">{{ post.comments.all | length }}</span>
+                            <a href="{% url 'post' post.id%}"><button id="commentsBtn" class="bg-transparent border-0 p-0 m-0"><i class="fas fa-comments"></i></button></a> 
+                        </span>
                     </div>
                 </div>
                 {% empty %}
                     {% if currentPage == "following" %}
                         <h4 class="text-center mt-4">You are currenty not following anybody...</h4>
                     {% elif currentPage == "index" %}
-                        <h4 class="text-center mt-4">There exist no posts available...</h4>
+                        <h4 class="text-center mt-4">No posts exist currently...</h4>
                     {% endif %}
                 {% endfor %}
             </div>

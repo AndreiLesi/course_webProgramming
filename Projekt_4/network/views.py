@@ -24,18 +24,11 @@ def index(request):
 
 
 def profile(request, username):
-    user = User.objects.get(username=username)
-    if request.user == user:
-        showFollow = 0
-    elif request.user.username in user.followers.all():
-        showFollow = 1
-    else:
-        showFollow = 2
+    profile = User.objects.get(username=username)
 
     # Add Pagination
-    content = getPaginator(request, user.posts.order_by("-timestamp"))
-    content["profile"] = user
-    content["showFollow"] = showFollow
+    content = getPaginator(request, profile.posts.order_by("-timestamp"))
+    content["profile"] = profile
     return render(request, "network/profile.html", content)
 
 
@@ -105,11 +98,31 @@ def register(request):
     else:
         return render(request, "network/register.html")
 
+def post(request, post_id):
+    post = Post.objects.get(pk=post_id)
+
+    if request.method == "POST":
+        # Add comment to the database if made
+        if "comment" in request.POST.keys():
+            comment = Comment(creator=request.user, 
+                              content=request.POST["comment"],
+                              post=post)
+            comment.save()
+
+    # Add Paginator
+    content = getPaginator(request, post.comments.order_by("-timestamp"))
+    content["comments"] = content.pop("page")
+    content["currentPage"] = "comment"
+    content["mainPost"] = post
+    print(content)
+
+    return render(request, "network/index.html", content)
+
 
 # API's
 @csrf_exempt
 @login_required(login_url="/login")
-def posts(request, post_id):
+def api_posts(request, post_id):
     # Return post contents
     if request.method == "GET":
         try:
@@ -119,7 +132,7 @@ def posts(request, post_id):
         return JsonResponse(post.serialize())
 
     # Update post content and liked posts
-    if request.method == "PUT":
+    if request.method == "PUT" and request.user.is_authenticated:
         data = json.loads(request.body)
         # change post content if edited
         if "content" in data:
@@ -129,10 +142,10 @@ def posts(request, post_id):
         # or add post to users like list
         elif "like" in data:
             post = Post.objects.get(pk=post_id)
-            if data["like"] == True:
-                post.likes.add(request.user)
-            else:
+            if request.user in post.likes.all():
                 post.likes.remove(request.user)
+            else:
+                post.likes.add(request.user)
         post.save()
         return HttpResponse(status=204)
 
@@ -142,3 +155,23 @@ def posts(request, post_id):
             "error": "GET or PUT request required."
         }, status=400)
 
+
+@csrf_exempt
+@login_required(login_url="/login")
+def api_follow(request):
+    # Update post content and liked posts
+    if request.method == "PUT" and request.user.is_authenticated:
+        data = json.loads(request.body)
+        profile = User.objects.get(id=data["profile_id"])
+        if profile in request.user.follows.all():
+            request.user.follows.remove(profile)
+        else:
+            request.user.follows.add(profile)
+        request.user.save()
+        return HttpResponse(status=204)
+    
+    # post must be via PUT
+    else:
+        return JsonResponse({
+            "error": "Only PUT request premitted."
+        }, status=400)

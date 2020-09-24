@@ -1,17 +1,24 @@
 {% extends "network/layout.html" %}
 
+<!-- Pass Django template variables to javascript  -->
+{% block django-to-js %}
+<script type="text/javascript">
+    const profile_id = "{{ profile.id }}"
+</script>
+{% endblock %}
+
 {% block body %}
 <div class="container">
     <!-- Profile Details header and follow button -->
-    <h2 class="text-center mt-4">
+    <h2 class="text-center pt-4">
         Profile Details 
-        {% if user.is_authenticated %}
-            {% if showFollow == 1 %}
-                <button class="btn btn-primary btn-sm" id="followBtn">
+        {% if user.is_authenticated and request.user != profile %}
+            {% if profile not in request.user.follows.all %}
+                <button class="btn btn-primary btn-sm align-middle" id="followBtn">
                     Follow
                 </button>
-            {% elif showFollow == 2 %}
-                <button class="btn btn-primary btn-sm" id="followBtn">
+            {% else %}
+                <button class="btn btn-primary btn-sm align-middle" id="followBtn">
                     Unfollow
                 </button>
             {% endif %}

@@ -16,14 +16,13 @@ class Post(models.Model):
     creator = models.ForeignKey(User, related_name="posts", 
                 on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
-    content = models.CharField(max_length=10000)
+    content = models.TextField(max_length=10000)
 
     def __str__(self):
         return f'{self.creator} from {self.timestamp.strftime("%d.%m.%Y %H:%M")}'
 
     def serialize(self):
         return {
-            # "creator": self.creator,
             "timestamp": self.timestamp,
             "content": self.content
         }
@@ -32,11 +31,10 @@ class Post(models.Model):
 class Comment(models.Model):
     creator = models.ForeignKey(User, related_name="comments", 
               on_delete=models.CASCADE)
-    content = models.CharField(max_length=10000)
+    content = models.TextField(max_length=10000)
     post = models.ForeignKey(Post, related_name="comments", 
            on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, blank=True, default=0, 
-            related_name="likedComments")
+    timestamp = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return f"{self.creator}'s comment on {self.post}"
