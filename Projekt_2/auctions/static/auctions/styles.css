@@ -1,6 +1,15 @@
+body {
+    background-color: #e9f3f7;
+}
+
+/* Navigation Bar Settings  */
 nav {
-    width: 100%;
-    background-color: #94bbe9;
+    /* width: 100%; */
+    background-color: #35464d;
+}
+
+.nav-link {
+    font-size: large;
 }
 
 .navbar-brand {
@@ -8,6 +17,7 @@ nav {
     border-radius: 25px;
     padding: 5pt;
     background-color: #E7D19A;
+    font-size: x-large;
 }
 
 .img-class img, .img-details{
@@ -70,3 +80,6 @@ nav {
     border-color: cornflowerblue !important;
 
 }
+
+
+

@@ -10,10 +10,10 @@
     </head>
     <body>
         <!-- Nav-Bar Left side -->
-        <nav class="navbar navbar-expand-sm navbar-light sticky-top">
-            <a href="" class="navbar-brand">Thrifty.io</a>
+        <nav class="navbar navbar-expand-sm navbar-dark sticky-top mb-5">
+            <a href="{% url 'index' %}" class="navbar-brand text-dark">Thrifty.io</a>
             <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-auto py-2">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
                     </li>
@@ -44,13 +44,13 @@
                             <a class="nav-link" href="{% url 'login' %}">Log In</a>
                         </li>
                         <li class="nav-item nav-pills bg-light rounded">
-                            <a class="nav-link" href="{% url 'register' %}"><strong>Register</strong></a>
+                            <a class="nav-link text-dark" href="{% url 'register' %}"><strong>Register</strong></a>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </nav>
-        <hr>
+        <!-- <hr> -->
         {% block body %}
         {% endblock %}
     </body>

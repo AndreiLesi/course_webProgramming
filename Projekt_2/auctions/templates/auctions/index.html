@@ -1,7 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h1 class="display-5 text-center m-4 mb-5 font-weight-bold">
+    <h1 class="display-5 text-center mb-5 font-weight-bold">
     {% if viewType == 0 %}
         Active Listings
     {% elif viewType == 1 %}
@@ -12,8 +12,8 @@
     </h1>
 
     {% for listing in listings %}
-        <div class="container my-4 border border-secondary rounded">
-            <div class="row equal">
+        <div class="container my-4 border border-secondary rounded bg-white">
+            <div class="row equal py-2">
                 <div class="col-md-5 col-sd-12">
                     <a href="{% url 'details' listing.id %}" class="stretched-link">
                         <div class="img-class">
