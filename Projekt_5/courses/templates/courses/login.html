@@ -1,0 +1,43 @@
+{% extends "courses/layout_login.html" %}
+{% load static %}
+
+{% block login %}
+    <!-- <main class="login-body" style="background-image: url({% static 'courses/img/gallery/featured3.png' %}) "> -->
+    <main class="login-body">
+        <!-- Login Admin -->
+        <form class="form-default" method="POST">
+            {% csrf_token %}
+            <div class="login-form">
+                <!-- logo-login -->
+                <div class="logo-login">
+                    <a href="{% url 'index' %}"><img src="{% static 'courses/img/logo/loder.png' %}" alt=""></a>
+                </div>
+                <h2>Login Here</h2>
+                <div class="form-input">
+                    <label for="name">Email</label>
+                    <input  type="email" name="email" placeholder="John@gmail.com">
+                </div>
+                <div class="form-input">
+                    <label for="name">Password</label>
+                    <input type="password" name="password" placeholder="******">
+                </div>
+                <div class="form-input pt-30">
+                    <input type="submit" name="submit" value="login">
+                </div>
+                <!-- Display error messages  -->
+                <div class="pt-2">
+                    {% if message %}
+                        <div class="alert alert-danger">
+                            <strong>{{ message |escape }}</strong>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mt-2 text-white">
+                    Don't have an account? <a href="{% url 'register' %}"><span class="text-primary">Register here.</span></a>
+                </div>
+            </div>
+        </form>
+        <!-- /end login form -->
+    </main>
+
+{% endblock %}

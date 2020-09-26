@@ -1,0 +1,55 @@
+{% extends "courses/layout.html" %}
+{% load static %}
+
+{% block main %}
+    <main>
+        <!--? slider Area Start-->
+        <section class="slider-area2">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">Upload your course</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </section>
+        <!-- Courses area End -->
+        <!-- Create Listing-->
+        <div class="col-lg-8 mx-auto">
+            <div class="section-tittle text-center my-5">
+                <h2></h2>
+            </div>
+
+            {% if message %}
+                <div class="alert alert-danger" role="alert">{{ message }}</div>
+            {% endif %}
+
+            <form class="form-contact contact_form"  method="post" id="contactForm">
+                <div class="row">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="col-12 {% if field.label == 'Topic' %} mb-5 {% endif %}">
+                            {% if field.label != "Topic" %}
+                                <div class="form-group">
+                            {% else %}
+                                <div class="form-select">
+                            {% endif %}
+                                <label> {{ field.label }} </label>
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="col-12 my-5 text-center">
+                        <input class="btn btn-primary" type="submit" value="Create Listing"> 
+                    </div>
+            </form>
+        </div>
+    </main>
+{% endblock %}
