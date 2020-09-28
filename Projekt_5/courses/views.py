@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -40,9 +40,9 @@ def courses(request, coursesCategory):
     return render(request, "courses/courses.html", content)
 
 
-def course_details(request):
-    courses = Course.objects.all()
-    content = {"courses": courses}
+def course_details(request, course_id):
+    course = Course.objects.get(id=course_id)
+    content = {"course": course}
     return render(request, "courses/course_details.html", content)
     
 
@@ -54,9 +54,12 @@ def course_create(request):
         if form.is_valid():
             courseModel = form.save(commit=False)
             courseModel.creator = request.user
-            print(courseModel)
-            # formModel.save()
-            # return redirect(details, id = formModel.id)
+            print("Form cleaned:", form.cleaned_data)
+            if form.cleaned_data["imageLink"]:
+                print("NewImageLink")
+                courseModel.image = form.cleaned_data["imageLink"]
+            courseModel.save()
+            return redirect("course_details", course_id = courseModel.id)
 
     return render(request, "courses/course_create.html", {
         'form': form

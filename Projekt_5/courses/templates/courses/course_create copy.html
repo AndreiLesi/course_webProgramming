@@ -29,13 +29,17 @@
                 <div class="alert alert-danger" role="alert">{{ message }}</div>
             {% endif %}
 
-            <form class="form-default" method="POST" action="{% url 'course_create' %}">
+            <form class="" method="POST" action="{% url 'course_create' %}">
                 <div class="row">
                     {% csrf_token %}
                     {% for field in form %}
-                        <div class="col-12">
-                            <div class="form-group my-3">
-                                <label> <h3 class="text-heading mb-0">{{ field.label }}</h3></label>
+                        <div class="col-12 {% if field.label in 'Topic,Effort,Level,Type' %} mb-5 {% endif %}">
+                            {% if field.label not in 'Topic,Effort,Level,Type' %}
+                                <div class="form-group mt-5">
+                            {% else %}
+                                <div class="form-select mt-5">
+                            {% endif %}
+                                <label> <h3 class="text-heading">{{ field.label }}</h3></label>
                                 {{ field }}
                             </div>
                         </div>
