@@ -1,0 +1,141 @@
+{% extends "courses/layout.html" %}
+
+<!-- Pass Django template variables to javascript  -->
+{% block django-to-js %}
+<script type="text/javascript">
+    const profile_id = "{{ profile.id }}"
+</script>
+{% endblock %}
+
+{% block main %}
+<main class="bg-light">
+    <!--? slider Area Start-->
+    <section class="slider-area2">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2 text-center">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">{{ profile.first_name }}'s Profile</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <!-- Profile Details header and follow button -->
+        <h2 class="text-center pt-4">
+            Profile Details 
+            {% if user.is_authenticated and request.user != profile %}
+                {% if profile not in request.user.follows.all %}
+                    <button class="btn btn-primary btn-sm align-middle" id="followBtn">
+                        Follow
+                    </button>
+                {% else %}
+                    <button class="btn btn-primary btn-sm align-middle" id="followBtn">
+                        Unfollow
+                    </button>
+                {% endif %}
+            {% endif %}
+        </h2>
+
+        <!-- Details Table -->
+        <table class="table mt-5 mb-4 responsive">
+            <tbody>
+                <tr>
+                    <td> Full Name </td>
+                    <td class="text-right">{{ profile.get_full_name }}</td>
+                </tr>
+                <tr>
+                    <td>E-mail Adress</td>
+                    <td class="text-right">{{ profile.username }}</td>
+                </tr>
+                <tr>
+                    <td># Enrolled courses</td>
+                    <td class="text-right">{{ profile.followers.all | length }}</td>
+                </tr>
+                <tr>
+                    <td># Following</td>
+                    <td class="text-right">{{ profile.follows.all | length }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Post List -->
+        <h2 class="text-center my-5">Posts</h2>
+
+        <!-- Display posts on this page  -->
+        <div class="container d-block mt-3">
+            {% for post in page.object_list %}
+            <div class="card my-3">
+                <div class="card-header bg-light">
+                    <h5><a href="{% url 'profile' post.creator %}">{{ post.creator }}</a>
+                        <small class="text-muted"> on {{ post.timestamp }}</small>
+                        <input type="hidden" id="post_id" value="{{ post.id }}">
+                        {% if post.creator == user %}
+                            <button type="submit" id="edit" class="btn btn-primary btn-sm float-right">Edit</button>
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text content">{{ post.content }}</p>
+                </div>
+                <div class=" border-top py-1 bg-white row-fluid text-center">
+                    <span class="">
+                        <span id="num_likes">{{ post.likes.all | length }}</span> 
+                        {% if not user.is_authenticated %}
+                            <i class="fa fa-heart text-danger"></i>
+                        {% elif user in post.likes.all %}
+                            <button id="likeBtn" class="bg-transparent border-0 p-0 m-0"><i class="fa fa-heart text-danger"></i></button>
+                        {% else %}
+                            <button id="likeBtn" class="bg-transparent border-0 p-0 m-0"><i class="far fa-heart text-danger"></i></button>
+                        {% endif %}
+                    </span>
+                    <span class="ml-5">
+                        <span id="num_comments">{{ post.comments.all | length }}</span>
+                        <a href="{% url 'course_details' post.id%}"><button id="commentsBtn" class="bg-transparent border-0 p-0 m-0"><i class="fas fa-comments"></i></button></a> 
+                    </span>
+                </div>
+            </div>
+            {% empty %}
+                {% if currentPage == "following" %}
+                    <h4 class="text-center mt-4">You are currenty not following anybody...</h4>
+                {% elif currentPage == "index" %}
+                    <h4 class="text-center mt-4">No posts exist currently...</h4>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Pagination Buttons -->
+        {% if page.paginator.num_pages > 1 %}
+            <nav aria-label="..." class="mt-3">
+                <ul class="pagination justify-content-center ">
+                    <li class="page-item {% if not page.has_previous %} disabled {% endif %}">
+                        <a class="page-link" href="{{ previousURL }}" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    {% for i in page.paginator.page_range %}
+                        {% if i == page.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="?page={{ i }}">{{ i }} <span class="sr-only">(current)</span></a>
+                            </li>
+                        {% elif i >= page.number|add:-2 and i <= page.number|add:2 %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li class="page-item {% if not page.has_next %} disabled {% endif %}">
+                        <a class="page-link " href="{{nextURL}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        {% endif %}
+
+
+        <!-- Posts are filled from the layout form where the post data is sent from django -->
+    </div>
+</main>
+{% endblock %}
+

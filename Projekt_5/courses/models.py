@@ -24,7 +24,7 @@ class Course(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=10000)
-    summary = models.TextField(max_length=10000)
+    outline = models.TextField(max_length=10000)
     topics = [
         ("Programming", "Programming"),
         ("Business", "Business"), 
@@ -52,13 +52,15 @@ class Course(models.Model):
     language = models.CharField(max_length=100)
     types = [
         ("Self-paced on your time", "Self-paced on your time"),
-        (" Instructor-led on a course schedule", " Instructor-led on a course schedule")
+        ("Instructor-led schedule", "Instructor-led schedule")
     ]
     type = models.CharField(max_length=150, choices=types)
     price = models.FloatField()
-    image = models.URLField(blank=True, default="https://img.icons8.com/ios/" \
-                                     "500/000000/no-image.png")
+    image = models.URLField(blank=True, default="https://images.unsplash.com/" \
+                        "photo-1498243691581-b145c3f54a5a?fit=crop&w=500&q=60")
     # ratins = "toAdd"
+
+    
 
     def __str__(self):
         return f'{self.title}'
