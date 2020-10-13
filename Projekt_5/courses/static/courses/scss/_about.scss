@@ -4,13 +4,13 @@
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
-		@media #{$lg}{
-			display: block;
-		}
+		// @media #{$lg}{
+		// 	display: block;
+		// }
 		// Left Content
 		.left-content1{
-			width: 49%;
-			padding-left: 366px;
+			width: 42%;
+			padding-left: 200px;
 
 			@media #{$laptop}{
 				width: 45%;
@@ -89,7 +89,7 @@
 		// Right Content
 		.right-content1{
 			width: 40%;
-			margin-right: 100px;
+			margin-right: 200px;
 			@media #{$laptop}{
 				width: 46%;
 				margin-right: 50px;

@@ -83,7 +83,8 @@
                                                     <li><a href="{% url 'contact' %}">Contact</a></li>
                                                     <!-- Button -->
                                                     {% if user.is_authenticated %}
-                                                        <li class="button-header"><a href="{% url 'profile' user.username %}" class="btn btn3">My Profile</a></li>
+                                                    <li><a href="{% url 'profile' user.id %}">My Profile</a></li>
+                                                    <li><a href="{% url 'logout' %}">Logout</a></li>
                                                     {% else %}
                                                         <li class="button-header margin-left "><a href="{% url 'register' %}" class="btn">Join</a></li>
                                                         <li class="button-header"><a href="{% url 'login' %}" class="btn btn3">Log in</a></li>

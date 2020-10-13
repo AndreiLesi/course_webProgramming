@@ -88,8 +88,8 @@ def course_create(request):
     })
 
 
-def profile(request, username):
-    profile = User.objects.get(username=username)
+def profile(request, profile_id):
+    profile = User.objects.get(id=profile_id)
 
     # Add Pagination
     content = getPaginator(request, profile.enrolled.order_by("-timestamp"), 10)
@@ -130,7 +130,7 @@ def login_view(request):
         # Attempt to sign user in
         email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=email, password=password)
 
         # Check if authentication successful
         if user is not None:
@@ -142,6 +142,12 @@ def login_view(request):
             })
     else:
         return render(request, "courses/login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("index"))
+
 
 def register(request):
     form = UserForm()
