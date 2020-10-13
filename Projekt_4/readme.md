@@ -1,4 +1,4 @@
-# Project 3: Network 
+# Project 4: Network 
 
 Design a Twitter-like social network website for making posts and following users.
 
@@ -28,10 +28,10 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
 
 
 # Sample Images:
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_4/editing.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_4/profileFollow.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_4/pagination_Likes.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_4/comments.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_4/editing.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_4/profileFollow.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_4/pagination_Likes.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_4/comments.JPG?raw=true)
 
 # How to load the Projects:
 
