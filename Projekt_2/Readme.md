@@ -21,12 +21,12 @@ Complete the implementation of your auction site. You must fulfill the following
 
 
 # Sample Images:
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_2/Register.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_2/Index.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_2/Create.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_2/Categories.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_2/Listing-1.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_2/Listing-2.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_2/Register.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_2/Index.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_2/Create.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_2/Categories.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_2/Listing-1.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_2/Listing-2.JPG?raw=true)
 
 
 # How to load the Projects:

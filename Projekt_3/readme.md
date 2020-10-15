@@ -35,11 +35,11 @@ Using JavaScript, HTML, and CSS, complete the implementation of your single-page
     * Pre-fill the body of the email with a line like "On Jan 1 2020, 12:00 AM foo@example.com wrote:" followed by the original text of the email.
 
 # Sample Images:
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/Inbox.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/Compose.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/Email.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/Reply.JPG?raw=true)
-![](https://github.com/AndreiLesi/Sample_Images/blob/master/course_webProgramming/Project_3/Archived.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_3/Inbox.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_3/Compose.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_3/Email.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_3/Reply.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_3/Archived.JPG?raw=true)
 
 # How to load the Projects:
 
