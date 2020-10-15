@@ -72,14 +72,6 @@
                                                             <li><a href="{% url 'course_create' %}">Upload Course</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li><a href="{% url 'about' %}">About</a></li>
-                                                    <li><a href="#">Blog</a>
-                                                        <ul class="submenu">
-                                                            <li><a href="{% url 'blog' %}">Blog</a></li>
-                                                            <li><a href="{% url 'blog_details' %}">Blog Details</a></li>
-                                                            <li><a href="{% url 'elements' %}">Element</a></li>
-                                                        </ul>
-                                                    </li>
                                                     <li><a href="{% url 'contact' %}">Contact</a></li>
                                                     <!-- Button -->
                                                     {% if user.is_authenticated %}
