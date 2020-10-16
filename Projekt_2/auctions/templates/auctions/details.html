@@ -8,7 +8,7 @@
             <div class="col-lg-6 order-2 order-lg-1">
 
                 <!-- Title and Watchlist Icon  -->
-                <h1 class="display-4">{{ listing.title }}</h1>
+                <h1 class="display-5">{{ listing.title }}</h1>
                 {% if listing in request.user.watchlist.all %}
                     <h5><span class="badge badge-secondary p-2 mt-2 ">Watchlist</span></h5>
                 {% else %}
@@ -106,8 +106,8 @@
             </div>
             
             <!-- Image  -->
-            <div class="col-lg-6 order-1 order-lg-2 mb-5 mb-lg-0 d-flex justify-content-md-center">
-                <img class="img-details" src= {{ listing.imageURL }} alt="">
+            <div class="col-lg-6 order-1 order-lg-2 mb-5 mb-lg-0 justify-content-md-center">
+                <img class="img-details d-block mx-auto" src= {{ listing.imageURL }} alt="">
             </div>
         </div>
 
