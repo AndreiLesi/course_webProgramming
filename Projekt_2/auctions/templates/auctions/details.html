@@ -4,17 +4,16 @@
 
 <section class="py-2">
     <div class="container-fluid w-75 bg-white rounded p-5">
+        <!-- Title and Watchlist Icon  -->
+        <h1 class="display-5 justify-content-center font-weight-bold">{{ listing.title }}</h1>
+        {% if listing in request.user.watchlist.all %}
+            <h5><span class="badge badge-secondary p-2 mt-2 ">Watchlist</span></h5>
+        {% else %}
+            <h5><span class="badge invisible p-2 mt-2 ">Watchlist</span></h5>
+        {% endif %}
+
         <div class="row">
-            <div class="col-lg-6 order-2 order-lg-1">
-
-                <!-- Title and Watchlist Icon  -->
-                <h1 class="display-5">{{ listing.title }}</h1>
-                {% if listing in request.user.watchlist.all %}
-                    <h5><span class="badge badge-secondary p-2 mt-2 ">Watchlist</span></h5>
-                {% else %}
-                <h5><span class="badge invisible p-2 mt-2 ">Watchlist</span></h5>
-                {% endif %}
-
+            <div class="col-lg-5 order-2 order-lg-1">
                 <!-- Price Tag  -->
                 <h2 class="display-5 mt-5"><strong>{{ listing.price }} €</strong></h2>
                 <p> 
@@ -106,7 +105,7 @@
             </div>
             
             <!-- Image  -->
-            <div class="col-lg-6 order-1 order-lg-2 mb-5 mb-lg-0 justify-content-md-center">
+            <div class="col-lg-7 order-1 order-lg-2 mb-5 mb-lg-0 justify-content-md-center">
                 <img class="img-details d-block mx-auto" src= {{ listing.imageURL }} alt="">
             </div>
         </div>
