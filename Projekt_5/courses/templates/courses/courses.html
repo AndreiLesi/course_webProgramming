@@ -33,19 +33,36 @@
                                 </div>
                                 <div class="properties__caption">
                                     <p> {{ course.topic }}</p>
-                                    <h3><a href="#">{{ course.title }}</a></h3>
+                                    <h3><a href="{% url 'course_details' course.id %}">{{ course.title }}</a></h3>
                                     <p class="my-5 "><i class="fas fa-language mr-3"></i><strong>Langauge:</strong>  {{ course.language }}
                                         <br><i class="fas fa-certificate mr-4"></i><strong>Level:</strong>  {{ course.level }}</p>
                                     <div class="properties__footer d-flex justify-content-between align-items-center">
                                         <div class="restaurant-name">
                                             <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half"></i>
+                                                {% with num_stars=course.avg_rating|floatformat:"0"|default:0 %}
+                                                    <!-- Empty Stars if not rated -->
+                                                    {% if num_stars == 0 %}
+                                                        {% with ''|center:5 as range %}
+                                                            {% for _ in range %}
+                                                                <i class="far fa-star"></i>
+                                                            {% endfor %}
+                                                        {% endwith %}
+                                                    {% endif %}
+                                                    <!-- Full Stars -->
+                                                    {% with ''|center:num_stars as range %}
+                                                        {% for _ in range %}
+                                                            <i class="fas fa-star"></i>
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                {% endwith %}
                                             </div>
-                                            <p><span>(4.5)</span> based on 120</p>
+                                            <p> 
+                                                {% if course.avg_rating %}
+                                                    <span><strong>({{ course.avg_rating|floatformat:"2" }})</strong></span> based on {{ course.num_ratings }}
+                                                {% else %}
+                                                    Not rated yet.
+                                                {% endif %}
+                                            </p>
                                         </div>
                                         <div class="price">
                                             <span>${{ course.price }}</span>
@@ -55,6 +72,10 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    {% empty %}
+                    <div class="container justify-content-center">
+                        <h1 class="text-center">There are no courses in this category yet...</h1>
                     </div>
                     {% endfor %}
                 </div>

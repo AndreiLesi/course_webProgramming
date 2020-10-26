@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Course, Comment
+from .models import User, Course, Comment, Rating
 from django.forms import Textarea, TextInput
 from django.db import models
 from .models import User
@@ -33,3 +33,4 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Course, CommentAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Rating, CommentAdmin)

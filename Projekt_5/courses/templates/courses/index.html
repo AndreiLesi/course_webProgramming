@@ -14,7 +14,11 @@
                                 <div class="hero__caption">
                                     <h1 data-animation="fadeInLeft" data-delay="0.2s">Online learning<br> platform</h1>
                                     <p data-animation="fadeInLeft" data-delay="0.4s">Build skills with courses, certificates, and degrees online from world-class universities and companies</p>
-                                    <a href="#" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join for Free</a>
+                                    {% if request.user.is_authenticated %}
+                                        <a href="{% url 'courses' 'Enrolled' %}" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">View Enrolled Courses</a>
+                                    {% else %}
+                                        <a href="{% url 'register' %}" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join for Free</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -74,135 +78,56 @@
                     </div>
                 </div>
                 <div class="courses-actives">
-                    <!-- Single -->
-                    <div class="properties pb-20">
-                        <div class="properties__card">
-                            <div class="properties__img overlay1">
-                                <a href="#"><img src="{% static 'courses/img/gallery/featured1.png' %}" alt=""></a>
-                            </div>
-                            <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-
-                                </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
-                                        </div>
-                                        <p><span>(4.5)</span> based on 120</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$135</span>
-                                    </div>
+                    {% for course in topCourses %}
+                        <div class="properties properties2 pb-20">
+                            <div class="properties__card">
+                                <div class="properties__img overlay1">
+                                        <a href="{% url 'course_details' course.id %}"><img src="{{ course.image }}" width="200" height="200"></a>
                                 </div>
-                                <a href="#" class="border-btn border-btn2">Find out more</a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Single -->
-                    <!-- Single -->
-                    <div class="properties pb-20">
-                        <div class="properties__card">
-                            <div class="properties__img overlay1">
-                                <a href="#"><img src="{% static 'courses/img/gallery/featured2.png' %}" alt=""></a>
-                            </div>
-                            <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-                                </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
+                                <div class="properties__caption">
+                                    <p> {{ course.topic }}</p>
+                                    <h3><a href="{% url 'course_details' course.id %}">{{ course.title }}</a></h3>
+                                    <p class="my-5 "><i class="fas fa-language mr-3"></i><strong>Langauge:</strong>  {{ course.language }}
+                                        <br><i class="fas fa-certificate mr-4"></i><strong>Level:</strong>  {{ course.level }}</p>
+                                    <div class="properties__footer d-flex justify-content-between align-items-center">
+                                        <div class="restaurant-name">
+                                            <div class="rating">
+                                                {% with num_stars=course.avg_rating|floatformat:"0"|default:0 %}
+                                                    <!-- Empty Stars if not rated -->
+                                                    {% if num_stars == 0 %}
+                                                        {% with ''|center:5 as range %}
+                                                            {% for _ in range %}
+                                                                <i class="far fa-star"></i>
+                                                            {% endfor %}
+                                                        {% endwith %}
+                                                    {% endif %}
+                                                    <!-- Full Stars -->
+                                                    {% with ''|center:num_stars as range %}
+                                                        {% for _ in range %}
+                                                            <i class="fas fa-star"></i>
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                {% endwith %}
+                                            </div>
+                                            <p> 
+                                                {% if course.avg_rating %}
+                                                    <span><strong>({{ course.avg_rating|floatformat:"2" }})</strong></span> based on {{ course.num_ratings }}
+                                                {% else %}
+                                                    Not rated yet.
+                                                {% endif %}
+                                            </p>
                                         </div>
-                                        <p><span>(4.5)</span> based on 120</p>
+                                        <div class="price">
+                                            <span>${{ course.price }}</span>
+                                        </div>
                                     </div>
-                                    <div class="price">
-                                        <span>$135</span>
-                                    </div>
+                                    <a href="{% url 'course_details' course.id %}" class="border-btn border-btn2">Find out more</a>
                                 </div>
-                                <a href="#" class="border-btn border-btn2">Find out more</a>
+
                             </div>
                         </div>
-                    </div>
-                    <!-- Single -->
-                    <!-- Single -->
-                    <div class="properties pb-20">
-                        <div class="properties__card">
-                            <div class="properties__img overlay1">
-                                <a href="#"><img src="{% static 'courses/img/gallery/featured3.png' %}" alt=""></a>
-                            </div>
-                            <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
+                    {% endfor %}
 
-                                </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
-                                        </div>
-                                        <p><span>(4.5)</span> based on 120</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$135</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="border-btn border-btn2">Find out more</a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Single -->
-                    <div class="properties pb-20">
-                        <div class="properties__card">
-                            <div class="properties__img overlay1">
-                                <a href="#"><img src="{% static 'courses/img/gallery/featured2.png' %}" alt=""></a>
-                            </div>
-                            <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-
-                                </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
-                                        </div>
-                                        <p><span>(4.5)</span> based on 120</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$135</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="border-btn border-btn2">Find out more</a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Single -->
                 </div>
             </div>
         </div>
@@ -210,7 +135,7 @@
         <!--? About Area-1 Start -->
         <section class="about-area1 fix pt-10">
             <div class="support-wrapper align-items-center justify-content-center mx-auto">
-                <div class="left-content1">
+                <div class="left-content1 mr-4">
                     <div class="about-icon">
                         <img src="{% static 'courses//img/icon/about.svg' %}" alt="">
                     </div>
@@ -359,7 +284,7 @@
                             <img src="{% static 'courses/img/gallery/team2.png' %}" alt="">
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="services.html">David J. Malan</a></h5>
+                            <h5><a href="services.html">Kathrin J. Malan</a></h5>
                             <p>Gordon McKay Professor of the Practice of Computer Science at Harvard University</p>
                         </div>
                     </div>
@@ -377,7 +302,7 @@
                             <img src="{% static 'courses/img/gallery/team4.png' %}" alt="">
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="services.html">Heiwad Osman</a></h5>
+                            <h5><a href="services.html">Nicole Hoffsman</a></h5>
                             <p>Senior Technical Trainer Amazon Web Services</p>
                         </div>
                     </div>

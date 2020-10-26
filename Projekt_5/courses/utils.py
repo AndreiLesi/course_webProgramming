@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
-
+import random
+from .models import *
 
 def getPaginator(request, data, elements):
     """
@@ -23,3 +24,22 @@ def getPaginator(request, data, elements):
 
     content = {"page": page, "previousURL": previousURL, "nextURL": nextURL}
     return content
+
+
+def RateCourses(num_ratings, scores=[2,3,4,5]):
+    """
+    Used to create dummy ratings for the courses by the admin.
+    """
+    me = User.objects.get(username="Admin@mail.com")
+    courses = Course.objects.all()
+    # courses = Course.objects.filter(topic="Programming")
+
+    for i in range(num_ratings):
+        rating = Rating()
+        rating.rating = random.choice(scores)
+        rating.creator = me
+        rating.course = random.choice(courses)
+        rating.save()
+        print(f"{i}: Rated {rating.rating}")
+
+

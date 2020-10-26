@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
@@ -22,7 +23,7 @@ class Course(models.Model):
     creator = models.ForeignKey(User, related_name="uploadedCourses", 
                 on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=60)
     description = models.TextField(max_length=10000)
     outline = models.TextField(max_length=10000)
     topics = [
@@ -82,3 +83,15 @@ class Comment(models.Model):
     
     def __str__(self):
         return f"{self.creator}'s comment on {self.course}"
+
+
+class Rating(models.Model):
+    creator = models.ForeignKey(User, related_name="ratings", 
+              on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    course = models.ForeignKey(Course, related_name="ratings", 
+           on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.creator}: {self.rating}"

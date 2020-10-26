@@ -4,25 +4,36 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .forms import UserForm, CourseForm
-from .models import User, Course, Comment
+from .models import User, Course, Comment, Rating
 from .utils import getPaginator
+from django.db.models import Avg, Count
+
 
 # Create your views here.
 def index(request):
+    topCourses = Course.objects.order_by('-timestamp').annotate(
+                    avg_rating=Avg('ratings__rating'),  
+                    num_ratings=Count('ratings__rating'),)
+    topCourses = topCourses.order_by("-avg_rating")[0:10]
+
     topics = [course[0] for course in Course.topics]
-    content = {"topics": topics}
+    content = {"topics": topics, "topCourses":topCourses}
     return render(request, "courses/index.html", content)
 
 
 def courses(request, coursesCategory):
     # Display all available courses
     if coursesCategory == "All":
-        courses = Course.objects.order_by("-timestamp")
+        courses = Course.objects.order_by('-timestamp').annotate(
+                  avg_rating=Avg('ratings__rating'),  
+                  num_ratings=Count('ratings__rating'),)
         content = getPaginator(request, courses, 9)
         htmlHeading = "All our Courses"
     # Display only the enrolles courses 
     elif coursesCategory == "Enrolled" and request.user.is_authenticated:
-        courses = request.user.enrolled.order_by("-timestamp")
+        courses = request.user.enrolled.order_by("-timestamp").annotate(
+                  avg_rating=Avg('ratings__rating'),
+                  num_ratings=Count('ratings__rating'),)
         content = getPaginator(request, courses, 9)
         htmlHeading = "Enrolled Courses"
     # Redirect to categories page
@@ -34,7 +45,10 @@ def courses(request, coursesCategory):
     # If topic exists filter only those courses, else 
     else:
         choices = [course[0] for course in Course.topics]
-        courses = Course.objects.filter(topic=coursesCategory).order_by("-timestamp")
+        courses = Course.objects.filter(topic=coursesCategory)\
+                  .order_by("-timestamp").annotate(
+                   avg_rating = Avg('ratings__rating'),
+                   num_ratings=Count('ratings__rating'),)
         content = getPaginator(request, courses, 9)
         if coursesCategory in choices:
             htmlHeading = f"{coursesCategory} Courses"
@@ -49,20 +63,29 @@ def course_details(request, course_id):
     content = {"course": course}
 
     if request.method == "POST":
+        # Add Comment to database if present
         if "content" in request.POST.keys():
-            print("Commented")
             comment = Comment()
             comment.content = request.POST["content"]
             comment.creator = request.user
             comment.course = course
             comment.save()
+
+            # Add Rating to database if present
+            if "rating" in request.POST.keys():
+                rating = Rating()
+                rating.creator = request.user
+                rating.course = course
+                rating.rating = int(request.POST["rating"])
+                rating.save()
+
+        # Enroll/De-enroll user from course
         elif "buyCourse" in request.POST.keys():
+            print(f"buyCourse: {request.POST}")
             if course in request.user.enrolled.all():
-                print("Enrolled")
-                request.user.enrolled.add(course)
-            else:
-                print("De-enrolled")
                 request.user.enrolled.remove(course)
+            else:
+                request.user.enrolled.add(course)
             request.user.save()
 
     return render(request, "courses/course_details.html", content)
@@ -92,31 +115,17 @@ def profile(request, profile_id):
     profile = User.objects.get(id=profile_id)
 
     # Add Pagination
-    content = getPaginator(request, profile.enrolled.order_by("-timestamp"), 10)
+    content = getPaginator(request, profile.uploadedCourses\
+                .order_by("-timestamp").annotate(
+                avg_rating=Avg('ratings__rating'),  
+                num_ratings=Count('ratings__rating'),), 10)
     content["profile"] = profile
     return render(request, "courses/profile.html", content)
-
-
-
-
-def about(request):
-    content = {"page": 1}
-    return render(request, "courses/about.html", content)
 
 
 def contact(request):
     content = {"page": 1}
     return render(request, "courses/contact.html", content)
-
-
-def blog(request):
-    content = {"page": 1}
-    return render(request, "courses/blog.html", content)
-
-
-def blog_details(request):
-    content = {"page": 1}
-    return render(request, "courses/blog_details.html", content)
 
 
 def elements(request):
@@ -156,6 +165,10 @@ def register(request):
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
+            print(form.cleaned_data)
+            user = User.objects.get(username=form.cleaned_data["username"]) 
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
 
     content = {"form": form}
     return render(request, "courses/register.html", content)

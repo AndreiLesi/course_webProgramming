@@ -55,10 +55,12 @@
             <div class="text-center my-5">
                 <form class="form-contact contact_form"  method="post" action="{% url 'course_details' course.id%}">
                     {% csrf_token %}
-                    <!-- <input class="btn btn-primary" type="submit" name="buyCourse" value="Buy Course">  -->
-                    <button class="btn btn-primary" type="submit" name="buyCourse" >Buy Course</button>
+                    {% if course in request.user.enrolled.all %}
+                        <button class="btn btn-primary" type="submit" name="buyCourse">Cancel Course</button>
+                    {% else %}
+                        <button class="btn btn-primary" type="submit" name="buyCourse">Buy Course</button>
+                    {% endif %}
                 </form>
-                <!-- <a href="{% url 'course_details' course.id %}" name="buyCourse" class="btn">Buy Course</a> -->
             </div>
 
             <!-- About this course -->
@@ -76,16 +78,18 @@
             <!-- Write feedback part  -->
             {% if request.user.is_authenticated %}
             <div class=" mx-auto single_courses">
-                <form class="form-contact contact_form"  method="post" action="{% url 'course_details' course.id%}">
+                <form class="form-contact contact_form"  method="post" action="{% url 'course_details' course.id%}" id="form-comment">
                     {% csrf_token %}
                     <h3 class="second_title mb-3">Write your feedback</h3>
                     <p>Your rating</p>
-                    <p class="mb-5">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                    <p>
+                        <ul class="rating">
+                            <li class="rating-item" data-rate="1"></li>
+                            <li class="rating-item" data-rate="2"></li>
+                            <li class="rating-item" data-rate="3"></li>
+                            <li class="rating-item" data-rate="4"></li>
+                            <li class="rating-item" data-rate="5"></li>
+                        </ul>
                     </p>
 
                     <div class="form-group">
@@ -101,18 +105,18 @@
             <!-- Display All Comments -->
             <div class="comments-area p-0">
                 <h1 class="d1 mb-5">{{ course.comments.all | length }} Comments</h1>
-                {% for comment in course.comments.all reversed %}
+                {% for comment in course.comments.all %}
                 <div class="comment-list">
                     <div class="single-comment justify-content-between d-flex">
                         <div class="user justify-content-between d-flex">
                             <div class="thumb mt-3">
                                 <i class="fas fa-user fa-3x"></i>                            </div>
                             <div class="desc">
-                                <p class="comment preline">{{comment.content}}</p>
+                                <p class="comment preline mb-0">{{comment.content}}</p>
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <h5>
-                                            <a href="{% url 'profile' comment.creator.id %}">{{ comment.creator.first_name }}</a>
+                                            <a href="{% url 'profile' comment.creator.id %}"><strong>{{ comment.creator.first_name }}</strong></a>
                                         </h5>
                                         <p class="date">{{ comment.timestamp }} </p>
                                     </div>
@@ -129,5 +133,35 @@
         </div>
     </div>
 </main>
+{% endblock %}
 
+{% block js-scripts %}
+<script>
+    const container = document.querySelector('.rating');
+    const items = container.querySelectorAll('.rating-item');
+
+    container.onclick = e => {
+        const elClass = e.target.classList;
+        if (!elClass.contains('active')) { 
+            items.forEach(
+                item => item.classList.remove('active')
+            );
+            console.log(e.target.getAttribute("data-rate"));
+            elClass.add('active')
+        }
+
+        // Create hidden input to pass rating value
+        var rating = document.createElement("input");
+        rating.setAttribute("type", "hidden");
+        rating.setAttribute("id", "Rating-hidden");
+        rating.setAttribute("name", "rating");
+        rating.setAttribute("value", e.target.getAttribute("data-rate"));
+
+        // Remove previous rating if present
+        if (document.querySelector("#Rating-hidden")) {
+            document.querySelector("#form-comment").removeChild(document.querySelector("#Rating-hidden"));
+        }
+        document.querySelector("#form-comment").appendChild(rating);
+    }
+</script>
 {% endblock %}

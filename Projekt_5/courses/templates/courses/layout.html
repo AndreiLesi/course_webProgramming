@@ -28,9 +28,7 @@
         <link rel="stylesheet" href="{% static 'courses/css/slick.css' %}">
         <link rel="stylesheet" href="{% static 'courses/css/nice-select.css' %}">
         <link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
-        
     </head>
-
     <body>
         <!-- ? Preloader Start -->
         <div id="preloader-active">
@@ -198,6 +196,8 @@
         </div>
 
         <!-- JS here -->
+        {% block js-scripts %}
+        {% endblock %}
         <script src="{% static 'courses/js/vendor/modernizr-3.5.0.min.js' %}"></script>
         <!-- Jquery, Popper, Bootstrap -->
         <script src="{% static 'courses/js/vendor/jquery-1.12.4.min.js' %}"></script>
