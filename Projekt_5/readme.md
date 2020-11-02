@@ -50,7 +50,7 @@ Note: Make sure all required packages are available in your Python environment (
 Use it like a education (i.e. edX.org) account. Create a account, browse courses, rate them, comment on them, enroll in them etc.  
 
        
-**Existing login credentials (they have some posts, likes and follows already):**
+**Existing login credentials **
 
     username = Andrei@mail.com | Harvard@uni.com
 
