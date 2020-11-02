@@ -28,6 +28,9 @@ Beyond these requirements, the design, look, and feel of the website are up to y
 ![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_5/Index7.JPG?raw=true)
 ![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_5/Courses1.JPG?raw=true)
 ![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_5/Courses2.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_5/courseDetails.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_5/courseDetails2.JPG?raw=true)
+![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_5/courseDetails3.JPG?raw=true)
 ![](https://github.com/AndreiLesi/course_webProgramming/blob/master/SampleImages/Project_5/Profile.JPG?raw=true)
 
 
